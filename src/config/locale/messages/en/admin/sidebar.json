@@ -1,10 +1,10 @@
 {
   "header": {
     "brand": {
-      "title": "ShipAny Two",
+      "title": "ResumeTailor",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny Two"
+        "alt": "ResumeTailor"
       },
       "url": "/admin"
     },
@@ -12,7 +12,7 @@
   },
   "main_navs": [
     {
-      "title": "System",
+      "title": "Operations",
       "items": [
         {
           "title": "Users & Permissions",
@@ -37,7 +37,7 @@
           ]
         },
         {
-          "title": "Pages & Content",
+          "title": "Content",
           "icon": "FileText",
           "children": [
             {
@@ -53,7 +53,7 @@
           ]
         },
         {
-          "title": "Payments & Credits",
+          "title": "Billing",
           "icon": "DollarSign",
           "children": [
             {
@@ -72,21 +72,6 @@
               "icon": "Coins"
             }
           ]
-        }
-      ]
-    },
-    {
-      "title": "Business",
-      "items": [
-        {
-          "title": "AI Tasks",
-          "url": "/admin/ai-tasks",
-          "icon": "Brain"
-        },
-        {
-          "title": "AI Chats",
-          "url": "/admin/chats",
-          "icon": "MessageCircle"
         }
       ]
     }
@@ -131,25 +116,13 @@
         },
         {
           "title": "GitHub",
-          "url": "https://github.com/your-app-name",
+          "url": "https://github.com/dylan-zzm/getjob",
           "icon": "Github",
           "target": "_blank"
         },
         {
-          "title": "Twitter",
-          "url": "https://twitter.com/your-app-name",
-          "icon": "RiTwitterXFill",
-          "target": "_blank"
-        },
-        {
-          "title": "Discord",
-          "url": "https://discord.gg/your-app-name",
-          "icon": "RiDiscordFill",
-          "target": "_blank"
-        },
-        {
           "title": "Email",
-          "url": "mailto:support@your-domain.com",
+          "url": "mailto:hello@resumetailor.app",
           "icon": "Mail",
           "target": "_blank"
         }

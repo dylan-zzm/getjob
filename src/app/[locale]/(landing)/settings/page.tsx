@@ -7,5 +7,5 @@ export default async function SettingsPage({
 }) {
   const { locale } = await params;
 
-  redirect({ href: '/settings/profile', locale });
+  redirect({ href: '/settings/templates', locale });
 }

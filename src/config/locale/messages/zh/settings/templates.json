@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "badge": "受控模板",
+    "file": "模板文件",
+    "languages": "支持语言",
+    "outputs": "导出格式"
+  },
+  "sections": {
+    "title": "模板区块",
+    "description": "这些区块决定了上传简历后要如何映射到结构化内容。"
+  },
+  "notes": {
+    "title": "实现备注",
+    "description": "这些说明解释了为什么模板必须作为受控产品资产来管理。"
+  }
+}

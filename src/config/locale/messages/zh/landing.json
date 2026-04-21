@@ -2,10 +2,10 @@
   "header": {
     "id": "header",
     "brand": {
-      "title": "ShipAny Two",
+      "title": "ResumeTailor",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny Two",
+        "alt": "ResumeTailor",
         "width": 100,
         "height": 100
       },
@@ -14,174 +14,118 @@
     "nav": {
       "items": [
         {
-          "title": "功能亮点",
+          "title": "产品能力",
           "url": "/#features",
           "icon": "Sparkles"
         },
         {
-          "title": "案例展示",
+          "title": "模板展示",
           "url": "/showcases",
-          "icon": "Box"
+          "icon": "FileText"
         },
         {
-          "title": "价格",
+          "title": "价格方案",
           "url": "/pricing",
-          "icon": "DollarSign"
-        },
-        {
-          "title": "AI",
-          "icon": "RiRobot2Line",
-          "children": [
-            {
-              "title": "AI 图片生成器",
-              "description": "使用 AI 生成图片",
-              "url": "/ai-image-generator",
-              "icon": "RiImage2Line"
-            },
-            {
-              "title": "AI 音乐生成器",
-              "description": "使用 AI 生成美妙的音乐",
-              "url": "/ai-music-generator",
-              "icon": "RiMusic2Line"
-            },
-            {
-              "title": "AI 视频生成器",
-              "description": "使用 AI 生成视频",
-              "url": "/ai-video-generator",
-              "icon": "RiVideoLine"
-            },
-            {
-              "title": "AI 聊天机器人",
-              "description": "与 AI 聊天机器人对话",
-              "url": "/chat",
-              "icon": "RiMessage2Line"
-            }
-          ]
-        },
-        {
-          "title": "内容",
-          "icon": "FileText",
-          "children": [
-            {
-              "title": "博客",
-              "description": "阅读博客文章",
-              "url": "/blog",
-              "icon": "Newspaper"
-            },
-            {
-              "title": "更新日志",
-              "description": "阅读更新日志",
-              "url": "/updates",
-              "icon": "Clock"
-            },
-            {
-              "title": "文档",
-              "description": "阅读文档",
-              "url": "/docs",
-              "target": "_blank",
-              "icon": "BookOpenText"
-            }
-          ]
+          "icon": "WalletCards"
         }
       ]
     },
-    "buttons": [],
+    "buttons": [
+      {
+        "title": "进入工作台",
+        "url": "/activity/resumes",
+        "icon": "LayoutDashboard",
+        "variant": "outline"
+      }
+    ],
     "user_nav": {
       "show_name": true,
-      "show_credits": true,
+      "show_credits": false,
       "show_sign_out": true,
       "items": [
         {
-          "title": "账单",
-          "url": "/settings/billing",
-          "icon": "CreditCard"
+          "title": "工作台",
+          "url": "/activity/resumes",
+          "icon": "LayoutDashboard"
         },
         {
-          "title": "活动",
-          "url": "/activity",
-          "icon": "Activity"
+          "title": "账户设置",
+          "url": "/settings/templates",
+          "icon": "Settings2"
         }
       ]
     },
     "show_sign": true,
     "show_theme": true,
-    "show_locale": true,
-    "topbanner": {
-      "text": "此网站是 ShipAny 模板的演示站点，购买 ShipAny 模板，请访问 <a href='https://shipany.ai/zh/pricing' class='text-orange-300' target='_blank'>ShipAny 官网</a>"
-    }
+    "show_locale": true
   },
   "footer": {
     "id": "footer",
     "brand": {
-      "title": "ShipAny Two",
-      "description": "ShipAny 是专为 AI SaaS 创业项目打造的 NextJS 模板。丰富模板与组件，极速交付你的产品。",
+      "title": "ResumeTailor",
+      "description": "一套面向固定模板的简历工作台，负责简历抽取、JD 定制、在线编辑和 Word/PDF 交付。",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny Two",
-        "width": 100,
-        "height": 100
+        "alt": "ResumeTailor",
+        "width": 1024,
+        "height": 1024
       },
       "url": "/"
     },
     "nav": {
       "items": [
         {
-          "title": "关于我们",
+          "title": "产品",
           "children": [
             {
-              "title": "功能亮点",
+              "title": "功能总览",
               "url": "/#features",
               "target": "_self"
             },
             {
-              "title": "案例展示",
+              "title": "模板展示",
               "url": "/showcases",
               "target": "_self"
             },
             {
-              "title": "价格",
+              "title": "价格方案",
               "url": "/pricing",
               "target": "_self"
             }
           ]
         },
         {
-          "title": "资源",
+          "title": "工作台",
           "children": [
             {
-              "title": "文档",
-              "url": "/docs",
+              "title": "简历中心",
+              "url": "/activity/resumes",
               "target": "_self"
             },
             {
-              "title": "博客",
-              "url": "/blog",
+              "title": "岗位定制",
+              "url": "/activity/tailoring",
               "target": "_self"
             },
             {
-              "title": "对话",
-              "url": "/chat",
-              "target": "_blank"
+              "title": "导出中心",
+              "url": "/activity/exports",
+              "target": "_self"
             }
           ]
         },
         {
-          "title": "合作伙伴",
+          "title": "账户",
           "children": [
             {
-              "title": "ShipAny",
-              "url": "https://shipany.ai",
-              "target": "_blank"
+              "title": "模板设置",
+              "url": "/settings/templates",
+              "target": "_self"
             },
             {
-              "title": "ThinkAny",
-              "url": "https://thinkany.ai",
-              "target": "_blank"
-            },
-            {
-              "title": "MCP.so",
-              "url": "https://mcp.so",
-              "target": "_blank"
+              "title": "个人资料",
+              "url": "/settings/profile",
+              "target": "_self"
             }
           ]
         }
@@ -190,27 +134,15 @@
     "social": {
       "items": [
         {
-          "title": "X",
-          "icon": "RiTwitterXFill",
-          "url": "https://x.com/your-app-name",
-          "target": "_blank"
-        },
-        {
           "title": "Github",
           "icon": "Github",
-          "url": "https://github.com/your-app-name",
-          "target": "_blank"
-        },
-        {
-          "title": "Discord",
-          "icon": "RiDiscordFill",
-          "url": "https://discord.gg/your-app-name",
+          "url": "https://github.com/dylan-zzm/getjob",
           "target": "_blank"
         },
         {
           "title": "邮箱",
           "icon": "Mail",
-          "url": "mailto:support@your-domain.com",
+          "url": "mailto:hello@resumetailor.app",
           "target": "_self"
         }
       ]
@@ -228,6 +160,7 @@
       ]
     },
     "show_theme": true,
-    "show_locale": true
+    "show_locale": true,
+    "show_built_with": false
   }
 }

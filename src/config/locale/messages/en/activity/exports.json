@@ -1,0 +1,59 @@
+{
+  "formats": {
+    "items": [
+      {
+        "badge": "DOCX",
+        "title": "Template-safe Word output",
+        "description": "The source of truth is structured resume data, but the final Word file still respects the approved template."
+      },
+      {
+        "badge": "PDF",
+        "title": "Shareable PDF delivery",
+        "description": "PDF is generated from the same structured source so the final packet remains visually aligned."
+      },
+      {
+        "badge": "Queue",
+        "title": "Export-ready pipeline",
+        "description": "The export page defines the path from source resume to handoff-ready files."
+      }
+    ]
+  },
+  "pipeline": {
+    "title": "Export pipeline",
+    "description": "The final export chain is planned around deterministic rendering, not ad-hoc document editing.",
+    "items": [
+      {
+        "title": "Lock the approved version",
+        "description": "Freeze the exact tailored version that the user approved."
+      },
+      {
+        "title": "Map structured sections",
+        "description": "Place each section into the fixed template placeholders."
+      },
+      {
+        "title": "Generate DOCX",
+        "description": "Create the editable Word output based on the controlled template."
+      },
+      {
+        "title": "Generate PDF",
+        "description": "Render a delivery PDF from the same source so both formats stay in sync."
+      }
+    ]
+  },
+  "template": {
+    "title": "Current export source",
+    "description": "The first template is already normalized and stored in the project.",
+    "file": "Template file",
+    "path": "Project path",
+    "outputs": "Supported outputs"
+  },
+  "notes": {
+    "title": "Technical notes",
+    "description": "These notes explain the current state of the export foundation.",
+    "items": [
+      "The original desktop file was converted into a standard DOCX to make template rendering practical.",
+      "The product should export from structured resume data, not from an edited browser copy of the Word file.",
+      "Future templates can share the same export pipeline as long as they fit the registry and placeholder rules."
+    ]
+  }
+}

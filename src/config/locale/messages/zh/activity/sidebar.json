@@ -1,28 +1,33 @@
 {
-  "title": "活动",
+  "title": "工作台",
   "nav": {
     "items": [
       {
-        "title": "AI 任务",
-        "url": "/activity/ai-tasks",
-        "icon": "RiTaskLine"
+        "title": "简历中心",
+        "url": "/activity/resumes",
+        "icon": "FileText"
       },
       {
-        "title": "AI 对话",
-        "url": "/activity/chats",
-        "icon": "RiChat2Line"
+        "title": "岗位定制",
+        "url": "/activity/tailoring",
+        "icon": "Target"
+      },
+      {
+        "title": "导出中心",
+        "url": "/activity/exports",
+        "icon": "Download"
       }
     ]
   },
   "top_nav": {
     "items": [
       {
-        "title": "活动",
+        "title": "工作台",
         "url": "/activity",
-        "icon": "Activity"
+        "icon": "LayoutDashboard"
       },
       {
-        "title": "设置",
+        "title": "账户",
         "url": "/settings",
         "icon": "Settings"
       }

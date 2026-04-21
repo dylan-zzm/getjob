@@ -3,6 +3,7 @@ export * from './header';
 export * from './footer';
 
 export * from './hero';
+export * from './resume-hero';
 
 export * from './features';
 export * from './features-list';
@@ -21,6 +22,7 @@ export * from './faq';
 export * from './cta';
 export * from './subscribe';
 export * from './pricing';
+export * from './resume-plans';
 
 export * from './blog';
 export * from './blog-detail';

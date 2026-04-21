@@ -1,0 +1,28 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="720" rx="32" fill="#F5F3EE"/>
+  <rect x="132" y="144" width="248" height="360" rx="24" fill="#FFFFFF" stroke="#DBDBD4" stroke-width="2"/>
+  <rect x="356" y="182" width="248" height="360" rx="24" fill="#FFF8EA" stroke="#E4D7B5" stroke-width="2"/>
+  <rect x="580" y="220" width="248" height="360" rx="24" fill="#123B48" stroke="#123B48" stroke-width="2"/>
+
+  <rect x="170" y="196" width="120" height="20" rx="10" fill="#123B48"/>
+  <rect x="170" y="246" width="174" height="12" rx="6" fill="#123B48" fill-opacity="0.14"/>
+  <rect x="170" y="272" width="150" height="12" rx="6" fill="#123B48" fill-opacity="0.14"/>
+  <rect x="170" y="298" width="164" height="12" rx="6" fill="#123B48" fill-opacity="0.14"/>
+  <text x="256" y="438" fill="#123B48" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">DOCX</text>
+
+  <rect x="394" y="234" width="120" height="20" rx="10" fill="#8D6E2A"/>
+  <rect x="394" y="284" width="174" height="12" rx="6" fill="#8D6E2A" fill-opacity="0.16"/>
+  <rect x="394" y="310" width="150" height="12" rx="6" fill="#8D6E2A" fill-opacity="0.16"/>
+  <rect x="394" y="336" width="164" height="12" rx="6" fill="#8D6E2A" fill-opacity="0.16"/>
+  <text x="480" y="476" fill="#8D6E2A" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">PDF</text>
+
+  <rect x="618" y="272" width="120" height="20" rx="10" fill="#DCEBE9"/>
+  <rect x="618" y="322" width="174" height="12" rx="6" fill="#F6F4EF" fill-opacity="0.2"/>
+  <rect x="618" y="348" width="150" height="12" rx="6" fill="#F6F4EF" fill-opacity="0.2"/>
+  <rect x="618" y="374" width="164" height="12" rx="6" fill="#F6F4EF" fill-opacity="0.2"/>
+  <text x="704" y="514" fill="#F5F3EE" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">PACK</text>
+
+  <path d="M324 542C431 610 533 610 640 542" stroke="#123B48" stroke-width="6" stroke-linecap="round" stroke-dasharray="14 14"/>
+  <circle cx="324" cy="542" r="14" fill="#123B48"/>
+  <circle cx="640" cy="542" r="14" fill="#123B48"/>
+</svg>

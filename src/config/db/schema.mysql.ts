@@ -515,3 +515,34 @@ export const chatMessage = table(
     index('idx_chat_message_user_id').on(table.userId, table.status),
   ]
 );
+
+export const resume = table(
+  'resume',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    templateId: varchar191('template_id').notNull(),
+    title: varchar('title', { length: 255 }).notNull(),
+    status: varchar('status', { length: 50 }).notNull(),
+    sourceFileName: varchar('source_file_name', { length: 255 }).notNull(),
+    sourceMimeType: varchar('source_mime_type', { length: 191 })
+      .notNull()
+      .default(''),
+    sourceFileUrl: text('source_file_url').notNull(),
+    sourceText: longtext('source_text').notNull(),
+    baseContent: longtext('base_content').notNull(),
+    tailoredContent: longtext('tailored_content').notNull(),
+    analysis: longtext('analysis'),
+    targetRole: varchar('target_role', { length: 255 }).notNull().default(''),
+    jobDescription: longtext('job_description').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+    deletedAt: timestamp('deleted_at'),
+  },
+  (table) => [
+    index('idx_resume_user_status').on(table.userId, table.status),
+    index('idx_resume_template_status').on(table.templateId, table.status),
+  ]
+);

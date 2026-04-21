@@ -1,0 +1,59 @@
+{
+  "formats": {
+    "items": [
+      {
+        "badge": "DOCX",
+        "title": "模板安全的 Word 输出",
+        "description": "真实数据保存在结构化简历里，但最终 Word 仍严格回到受控模板中。"
+      },
+      {
+        "badge": "PDF",
+        "title": "可分享的 PDF 交付",
+        "description": "PDF 与 Word 由同一份结构化数据生成，确保最终交付外观一致。"
+      },
+      {
+        "badge": "Pipeline",
+        "title": "可交付的导出链路",
+        "description": "这页定义的是从原始简历到交付文件的完整导出路径。"
+      }
+    ]
+  },
+  "pipeline": {
+    "title": "导出链路",
+    "description": "最终导出应该建立在确定性渲染之上，而不是浏览器中的临时文档编辑。",
+    "items": [
+      {
+        "title": "锁定最终版本",
+        "description": "先冻结用户已经确认的岗位定制版本。"
+      },
+      {
+        "title": "映射模板字段",
+        "description": "把结构化区块依次填入固定模板的占位位置。"
+      },
+      {
+        "title": "生成 DOCX",
+        "description": "基于受控模板输出可编辑的 Word 文件。"
+      },
+      {
+        "title": "生成 PDF",
+        "description": "再用同一份数据同步生成 PDF，确保双格式一致。"
+      }
+    ]
+  },
+  "template": {
+    "title": "当前导出源",
+    "description": "首个模板已经标准化并存放进项目目录中。",
+    "file": "模板文件",
+    "path": "项目路径",
+    "outputs": "支持输出"
+  },
+  "notes": {
+    "title": "技术备注",
+    "description": "这些说明解释了导出基础目前所处的状态。",
+    "items": [
+      "最初桌面上的模板文件已经转换为标准 DOCX，方便后续做模板渲染。",
+      "产品应当从结构化简历数据导出，而不是从浏览器里临时改过的 Word 副本导出。",
+      "未来新增模板时，只要符合注册表和占位符规则，就可以复用同一条导出链路。"
+    ]
+  }
+}

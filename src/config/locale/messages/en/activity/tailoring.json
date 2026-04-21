@@ -1,0 +1,118 @@
+{
+  "hero": {
+    "badge": "Tailoring",
+    "title": "JD Tailoring",
+    "description": "The tailoring workflow is where structured resume data becomes job-specific delivery. The page now describes how the product should behave once the AI service is connected."
+  },
+  "workflow": {
+    "items": [
+      {
+        "title": "Capture the job target",
+        "description": "Collect the role title, company, seniority expectation, and the full JD body."
+      },
+      {
+        "title": "Analyze the source resume",
+        "description": "Identify which sections are strongest for the target role and which ones should move up or be softened."
+      },
+      {
+        "title": "Rewrite with guardrails",
+        "description": "Improve phrasing, ordering, and emphasis while preserving facts and keeping the template stable."
+      },
+      {
+        "title": "Review before export",
+        "description": "Show the user what changed and let them approve the final version before delivery."
+      }
+    ]
+  },
+  "engine": {
+    "title": "Execution baseline",
+    "description": "These values describe the current technical baseline already prepared in the project.",
+    "items": [
+      {
+        "title": "AI provider",
+        "value": "Evolink Claude Messages API"
+      },
+      {
+        "title": "Primary model",
+        "value": "claude-sonnet-4-5-20250929"
+      },
+      {
+        "title": "Template mode",
+        "value": "Fixed and controlled"
+      }
+    ]
+  },
+  "rules": {
+    "title": "Tailoring rules",
+    "description": "These rules should become the default system behavior.",
+    "items": [
+      {
+        "title": "Rewrite, do not fabricate",
+        "description": "AI can sharpen language and re-order emphasis, but it should not create outcomes, metrics, or roles that are not present in the source resume."
+      },
+      {
+        "title": "Prefer section-level control",
+        "description": "The workflow should work on structured sections and bullet points so version review stays predictable."
+      },
+      {
+        "title": "Explain why each change exists",
+        "description": "Every major rewrite should tie back to the job title or a concrete requirement in the JD."
+      },
+      {
+        "title": "Keep export compatibility",
+        "description": "Any tailored content must still fit the fixed template when rendered back to DOCX and PDF."
+      }
+    ]
+  },
+  "deliverables": {
+    "title": "Expected outputs",
+    "description": "A good tailoring run should produce more than a single rewritten paragraph.",
+    "items": [
+      {
+        "title": "Match summary",
+        "description": "A concise explanation of how the current resume aligns with the target role."
+      },
+      {
+        "title": "Section rewrite suggestions",
+        "description": "What to rewrite in profile, experience, projects, skills, and strengths."
+      },
+      {
+        "title": "Export-ready version",
+        "description": "A final structured version that is safe to render into the fixed template."
+      }
+    ]
+  },
+  "composer": {
+    "title": "Run a tailoring pass",
+    "description": "Pick a parsed resume, provide the target role and full JD, and the system rewrites the structured content within the factual guardrails.",
+    "resume_label": "Resume",
+    "resume_placeholder": "Select a resume",
+    "role_label": "Target role",
+    "role_placeholder": "Example: AI Product Manager / Data Product Manager",
+    "jd_label": "Job description",
+    "jd_placeholder": "Paste the full JD including responsibilities, requirements, keywords, and bonus signals.",
+    "submit": "Start tailoring",
+    "pending": "Tailoring...",
+    "success": "Tailoring result updated",
+    "error": "Failed to tailor the resume",
+    "no_resume": "Select a resume first",
+    "empty_title": "No parsed resumes yet",
+    "empty_description": "Upload and parse a resume in the studio before you run JD tailoring.",
+    "empty_button": "Go to Resume Studio"
+  },
+  "preview": {
+    "title": "Current tailoring result",
+    "score": "Match {score}%",
+    "base_summary": "Base resume summary",
+    "base_summary_empty": "This resume does not have a summary yet.",
+    "highlights": "Fit highlights",
+    "highlights_empty": "No fit highlights yet. After a tailoring run, this area will show the strongest JD-aligned signals.",
+    "warnings": "Warnings",
+    "warnings_empty": "No warnings right now.",
+    "changes": "Key changes",
+    "changes_empty": "No changes tracked yet. After a tailoring run, this area will show section-level reasons and before/after text.",
+    "unnamed_change": "Unnamed change",
+    "before": "Before",
+    "after": "After"
+  }
+}

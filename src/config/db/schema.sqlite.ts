@@ -600,3 +600,37 @@ export const chatMessage = table(
     index('idx_chat_message_user_id').on(table.userId, table.status),
   ]
 );
+
+export const resume = table(
+  'resume',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    templateId: text('template_id').notNull(),
+    title: text('title').notNull(),
+    status: text('status').notNull(),
+    sourceFileName: text('source_file_name').notNull(),
+    sourceMimeType: text('source_mime_type').notNull().default(''),
+    sourceFileUrl: text('source_file_url').notNull().default(''),
+    sourceText: text('source_text').notNull().default(''),
+    baseContent: text('base_content').notNull(),
+    tailoredContent: text('tailored_content').notNull(),
+    analysis: text('analysis'),
+    targetRole: text('target_role').notNull().default(''),
+    jobDescription: text('job_description').notNull().default(''),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+    deletedAt: integer('deleted_at', { mode: 'timestamp_ms' }),
+  },
+  (table) => [
+    index('idx_resume_user_status').on(table.userId, table.status),
+    index('idx_resume_template_status').on(table.templateId, table.status),
+  ]
+);

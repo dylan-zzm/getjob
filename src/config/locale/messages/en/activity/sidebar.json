@@ -1,28 +1,33 @@
 {
-  "title": "Activity",
+  "title": "Workspace",
   "nav": {
     "items": [
       {
-        "title": "AI Tasks",
-        "url": "/activity/ai-tasks",
-        "icon": "RiTaskLine"
+        "title": "Resume Studio",
+        "url": "/activity/resumes",
+        "icon": "FileText"
       },
       {
-        "title": "AI Chats",
-        "url": "/activity/chats",
-        "icon": "RiChat2Line"
+        "title": "JD Tailoring",
+        "url": "/activity/tailoring",
+        "icon": "Target"
+      },
+      {
+        "title": "Exports",
+        "url": "/activity/exports",
+        "icon": "Download"
       }
     ]
   },
   "top_nav": {
     "items": [
       {
-        "title": "Activity",
+        "title": "Workspace",
         "url": "/activity",
-        "icon": "Activity"
+        "icon": "LayoutDashboard"
       },
       {
-        "title": "Settings",
+        "title": "Account",
         "url": "/settings",
         "icon": "Settings"
       }

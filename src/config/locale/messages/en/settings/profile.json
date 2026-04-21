@@ -1,18 +1,18 @@
 {
   "fields": {
     "email": "Email",
-    "name": "Name",
+    "name": "Display name",
     "avatar": "Avatar"
   },
   "edit": {
     "title": "Profile",
-    "description": "Update your profile",
+    "description": "Manage the identity shown in your resume workspace.",
     "crumbs": {
-      "settings": "Settings",
+      "settings": "Account",
       "profile": "Profile"
     },
     "buttons": {
-      "submit": "Save"
+      "submit": "Save profile"
     }
   }
 }

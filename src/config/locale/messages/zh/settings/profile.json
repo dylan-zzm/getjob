@@ -1,18 +1,18 @@
 {
   "fields": {
     "email": "邮箱",
-    "name": "名称",
+    "name": "显示名称",
     "avatar": "头像"
   },
   "edit": {
     "title": "个人资料",
-    "description": "更新你的个人资料",
+    "description": "管理工作台中展示的账户信息。",
     "crumbs": {
-      "settings": "设置",
+      "settings": "账户",
       "profile": "个人资料"
     },
     "buttons": {
-      "submit": "保存"
+      "submit": "保存资料"
     }
   }
 }

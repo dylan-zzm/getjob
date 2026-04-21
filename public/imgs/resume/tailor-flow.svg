@@ -1,0 +1,32 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="720" rx="32" fill="#F6F4EF"/>
+  <rect x="60" y="82" width="360" height="556" rx="28" fill="#FFFFFF" stroke="#DDDCD5" stroke-width="2"/>
+  <rect x="540" y="82" width="360" height="556" rx="28" fill="#123B48"/>
+  <rect x="448" y="304" width="64" height="64" rx="32" fill="#FFFFFF" stroke="#DDDCD5" stroke-width="2"/>
+  <path d="M470 336H492" stroke="#123B48" stroke-width="6" stroke-linecap="round"/>
+  <path d="M486 324L498 336L486 348" stroke="#123B48" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="108" y="132" fill="#123B48" font-family="Arial, sans-serif" font-size="28" font-weight="700">Original resume</text>
+  <text x="588" y="132" fill="#F6F4EF" font-family="Arial, sans-serif" font-size="28" font-weight="700">Tailored version</text>
+
+  <rect x="108" y="172" width="104" height="30" rx="15" fill="#DCEBE9"/>
+  <rect x="220" y="172" width="88" height="30" rx="15" fill="#EAE7DE"/>
+  <rect x="108" y="238" width="260" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="108" y="262" width="238" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="108" y="286" width="212" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="108" y="336" width="284" height="88" rx="20" fill="#F8F8F5"/>
+  <rect x="108" y="456" width="284" height="88" rx="20" fill="#F8F8F5"/>
+
+  <rect x="588" y="172" width="120" height="30" rx="15" fill="#2C6472"/>
+  <rect x="720" y="172" width="106" height="30" rx="15" fill="#3B7B8B"/>
+  <rect x="588" y="238" width="260" height="12" rx="6" fill="#F6F4EF" fill-opacity="0.22"/>
+  <rect x="588" y="262" width="238" height="12" rx="6" fill="#F6F4EF" fill-opacity="0.22"/>
+  <rect x="588" y="286" width="212" height="12" rx="6" fill="#F6F4EF" fill-opacity="0.22"/>
+  <rect x="588" y="336" width="264" height="88" rx="20" fill="#184B58"/>
+  <rect x="588" y="456" width="264" height="88" rx="20" fill="#184B58"/>
+
+  <text x="250" y="190" fill="#123B48" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">education</text>
+  <text x="264" y="190" fill="#123B48" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">projects</text>
+  <text x="648" y="190" fill="#F6F4EF" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">AI PM</text>
+  <text x="773" y="190" fill="#F6F4EF" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">RAG</text>
+</svg>

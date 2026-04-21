@@ -1,43 +1,28 @@
 {
-  "title": "Settings",
+  "title": "Account",
   "nav": {
     "items": [
+      {
+        "title": "Templates",
+        "url": "/settings/templates",
+        "icon": "FileText"
+      },
       {
         "title": "Profile",
         "url": "/settings/profile",
         "icon": "User"
-      },
-      {
-        "title": "Billing",
-        "url": "/settings/billing",
-        "icon": "CreditCard"
-      },
-      {
-        "title": "Payments",
-        "url": "/settings/payments",
-        "icon": "DollarSign"
-      },
-      {
-        "title": "Credits",
-        "url": "/settings/credits",
-        "icon": "Coins"
-      },
-      {
-        "title": "API Keys",
-        "url": "/settings/apikeys",
-        "icon": "RiKeyLine"
       }
     ]
   },
   "top_nav": {
     "items": [
       {
-        "title": "Activity",
+        "title": "Workspace",
         "url": "/activity",
-        "icon": "Activity"
+        "icon": "LayoutDashboard"
       },
       {
-        "title": "Settings",
+        "title": "Account",
         "url": "/settings",
         "icon": "Settings"
       }

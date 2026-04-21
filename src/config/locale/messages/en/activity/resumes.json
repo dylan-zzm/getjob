@@ -1,0 +1,67 @@
+{
+  "hero": {
+    "badge": "Workspace",
+    "title": "Resume Studio",
+    "description": "This page anchors the product around the fixed template, structured resume schema, and the next implementation steps for upload, tailoring, and export.",
+    "primary_button": "Open JD Tailoring",
+    "secondary_button": "Review Templates"
+  },
+  "cards": {
+    "template": {
+      "title": "Current template",
+      "name": "Template",
+      "file": "Source file",
+      "outputs": "Export formats"
+    },
+    "intake": {
+      "title": "Input requirements",
+      "description": "The product scope for the first version stays narrow on purpose.",
+      "items": [
+        "Only your controlled template is allowed.",
+        "Users provide resume content and a target JD, not a custom layout.",
+        "The browser should edit structured sections, not free-form pages."
+      ]
+    },
+    "guardrail": {
+      "title": "Rewrite guardrails",
+      "description": "These rules define how the product should behave once AI tailoring is wired in.",
+      "items": [
+        "Never invent facts that do not exist in the source resume.",
+        "Keep version review visible before export.",
+        "Always render the final output back into the fixed template."
+      ]
+    }
+  },
+  "sections": {
+    "title": "Template schema",
+    "description": "The first template already gives us a clear schema for extraction and editing."
+  },
+  "notes": {
+    "title": "Why this matters",
+    "description": "These notes define the product contract before upload and export services are implemented."
+  },
+  "studio": {
+    "upload_title": "Upload and parse a resume",
+    "upload_description": "Users upload their existing resume file, not a template. The system extracts text first and then turns it into structured content.",
+    "file_label": "Resume file",
+    "helper": "Currently supports PDF and DOCX. The file is attached to the fixed-template workflow.",
+    "submit": "Upload and parse",
+    "pending": "Parsing...",
+    "success": "Resume parsed and saved to the workspace",
+    "error": "Failed to parse the resume",
+    "no_file": "Choose a resume file first",
+    "library_title": "Saved resume versions",
+    "library_description": "These are the resume records that already entered the fixed-template workflow.",
+    "empty": "No resume records yet. Upload a PDF or DOCX to create the first structured version.",
+    "open_tailoring": "Open JD tailoring",
+    "download_source": "Open source file",
+    "match_score": "Match {score}%",
+    "education_count": "Education sections {count}",
+    "experience_count": "Experience sections {count}",
+    "status": {
+      "parsed": "Parsed",
+      "tailored": "Tailored",
+      "archived": "Archived"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="720" rx="32" fill="#F6F4EF"/>
+  <rect x="54" y="54" width="852" height="612" rx="28" fill="#FFFFFF" stroke="#D6D7D2" stroke-width="2"/>
+  <rect x="96" y="104" width="236" height="34" rx="10" fill="#DCEBE9"/>
+  <rect x="96" y="156" width="120" height="14" rx="7" fill="#123B48" fill-opacity="0.18"/>
+  <rect x="228" y="156" width="92" height="14" rx="7" fill="#123B48" fill-opacity="0.12"/>
+  <rect x="332" y="156" width="164" height="14" rx="7" fill="#123B48" fill-opacity="0.12"/>
+
+  <rect x="96" y="220" width="336" height="184" rx="22" fill="#F9FAF9" stroke="#E6E7E3"/>
+  <rect x="470" y="220" width="394" height="184" rx="22" fill="#F9FAF9" stroke="#E6E7E3"/>
+  <rect x="96" y="434" width="768" height="184" rx="22" fill="#F9FAF9" stroke="#E6E7E3"/>
+
+  <rect x="124" y="248" width="112" height="18" rx="9" fill="#123B48"/>
+  <rect x="124" y="288" width="270" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="124" y="312" width="244" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="124" y="336" width="196" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="124" y="366" width="156" height="32" rx="16" fill="#D9EDE7"/>
+
+  <rect x="498" y="248" width="132" height="18" rx="9" fill="#123B48"/>
+  <rect x="498" y="288" width="318" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="498" y="312" width="292" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="498" y="336" width="264" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="498" y="366" width="148" height="32" rx="16" fill="#F0E0BC"/>
+
+  <rect x="124" y="462" width="160" height="18" rx="9" fill="#123B48"/>
+  <rect x="124" y="504" width="690" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="124" y="528" width="658" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="124" y="552" width="712" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+  <rect x="124" y="576" width="534" height="12" rx="6" fill="#123B48" fill-opacity="0.13"/>
+
+  <rect x="730" y="92" width="134" height="32" rx="16" fill="#123B48"/>
+  <text x="797" y="113" fill="#F7F6F2" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Fixed template</text>
+</svg>

@@ -1,148 +1,89 @@
 {
   "metadata": {
-    "title": "案例展示",
-    "description": "用 ShipAny 打造的精彩项目"
+    "title": "模板展示",
+    "description": "查看固定模板简历工作流的核心界面。"
   },
   "page": {
-    "title": "案例展示",
+    "title": "模板展示",
     "sections": {
       "showcases": {
         "id": "showcases",
-        "title": "用 ShipAny 构建的 AI SaaS 创业项目",
-        "description": "简单、快速、高效。",
+        "title": "第一版先交付一套模板、一条清晰工作流",
+        "description": "产品边界有意保持克制：模板控制、JD 定制、稳定导出。",
         "groups": [
           {
             "name": "all",
-            "title": "所有项目"
+            "title": "全部"
           },
           {
-            "name": "ai-chatbot",
-            "title": "AI 聊天机器人"
+            "name": "template",
+            "title": "模板"
           },
           {
-            "name": "ai-image",
-            "title": "AI 图片"
+            "name": "workflow",
+            "title": "流程"
           },
           {
-            "name": "ai-video",
-            "title": "AI 视频"
-          },
-          {
-            "name": "ai-audio",
-            "title": "AI 音频"
-          },
-          {
-            "name": "ai-music",
-            "title": "AI 音乐"
-          },
-          {
-            "name": "ai-coding",
-            "title": "AI 编程"
-          },
-          {
-            "name": "other",
-            "title": "其他"
+            "name": "delivery",
+            "title": "交付"
           }
         ],
         "items": [
           {
-            "title": "ThinkAny",
-            "description": "AI 搜索引擎",
-            "url": "https://thinkany.ai",
-            "target": "_blank",
+            "title": "小明固定模板",
+            "description": "首个受控 Word 模板已经整理出头部信息、教育背景、工作经历、实习经历、创业经历、技能和双语附录的稳定结构。",
+            "group": "template",
             "image": {
-              "src": "/imgs/cases/7.png",
-              "alt": "案例展示"
+              "src": "/imgs/resume/template-blueprint.svg",
+              "alt": "固定模板"
             },
-            "group": "ai-chatbot"
+            "button": {
+              "title": "查看模板",
+              "url": "/settings/templates",
+              "icon": "FileText"
+            }
           },
           {
-            "title": "HeyBeauty",
-            "description": "AI 虚拟试妆",
-            "url": "https://heybeauty.ai",
-            "target": "_blank",
+            "title": "结构化 JD 定制",
+            "description": "围绕结构化字段做改写，更容易对比原始版本和岗位定制版本，也更适合做人工审核。",
+            "group": "workflow",
             "image": {
-              "src": "/imgs/cases/5.png",
-              "alt": "案例展示"
+              "src": "/imgs/resume/tailor-flow.svg",
+              "alt": "JD 定制流程"
             },
-            "group": "ai-image"
+            "button": {
+              "title": "打开定制页",
+              "url": "/activity/tailoring",
+              "icon": "Target"
+            }
           },
           {
-            "title": "AI Wallpaper",
-            "description": "AI 壁纸生成器",
-            "url": "https://aiwallpaper.shop",
-            "target": "_blank",
+            "title": "导出交付面板",
+            "description": "Word 与 PDF 从同一份结构化数据生成，确保最终交付版本和模板保持一致。",
+            "group": "delivery",
             "image": {
-              "src": "/imgs/cases/1.png",
-              "alt": "案例展示"
+              "src": "/imgs/resume/export-stack.svg",
+              "alt": "导出交付"
             },
-            "group": "ai-image"
-          },
+            "button": {
+              "title": "查看导出流程",
+              "url": "/activity/exports",
+              "icon": "Download"
+            }
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "把模板展示页当成产品边界说明书",
+        "description": "未来每新增一套模板，也都应该遵循同样的流程：抽取、编辑、定制、导出。",
+        "buttons": [
           {
-            "title": "AI Cover",
-            "description": "AI 封面生成器",
-            "url": "https://aicover.design",
-            "target": "_blank",
-            "image": {
-              "src": "/imgs/cases/2.png",
-              "alt": "案例展示"
-            },
-            "group": "ai-image"
-          },
-          {
-            "title": "GPTs Works",
-            "description": "GPTs 导航",
-            "url": "https://gpts.works",
-            "target": "_blank",
-            "image": {
-              "src": "/imgs/cases/3.png",
-              "alt": "案例展示"
-            },
-            "group": "other"
-          },
-          {
-            "title": "Melodisco",
-            "description": "AI 音乐播放器",
-            "url": "https://melodis.co",
-            "target": "_blank",
-            "image": {
-              "src": "/imgs/cases/4.png",
-              "alt": "案例展示"
-            },
-            "group": "ai-music"
-          },
-          {
-            "title": "Pagen",
-            "description": "AI 落地页生成器",
-            "url": "https://pagen.so",
-            "target": "_blank",
-            "image": {
-              "src": "/imgs/cases/6.png",
-              "alt": "案例展示"
-            },
-            "group": "ai-coding"
-          },
-          {
-            "title": "SoraFM",
-            "description": "AI 视频生成器",
-            "url": "https://sorafm.trys.ai",
-            "target": "_blank",
-            "image": {
-              "src": "/imgs/cases/8.png",
-              "alt": "案例展示"
-            },
-            "group": "ai-video"
-          },
-          {
-            "title": "PodLM",
-            "description": "AI 播客生成器",
-            "url": "https://podlm.ai",
-            "target": "_blank",
-            "image": {
-              "src": "/imgs/cases/9.png",
-              "alt": "案例展示"
-            },
-            "group": "ai-audio"
+            "title": "进入工作台",
+            "icon": "LayoutDashboard",
+            "url": "/activity/resumes",
+            "target": "_self",
+            "variant": "default"
           }
         ]
       }

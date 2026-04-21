@@ -1,0 +1,67 @@
+{
+  "hero": {
+    "badge": "工作台",
+    "title": "简历中心",
+    "description": "这一页把产品重心固定在模板、结构化简历 schema，以及后续要实现的上传、定制和导出能力上。",
+    "primary_button": "打开岗位定制",
+    "secondary_button": "查看模板"
+  },
+  "cards": {
+    "template": {
+      "title": "当前模板",
+      "name": "模板名称",
+      "file": "源文件",
+      "outputs": "导出格式"
+    },
+    "intake": {
+      "title": "输入范围",
+      "description": "第一版产品会刻意保持聚焦，不做成一个大而全的文档平台。",
+      "items": [
+        "只允许使用受控模板，不开放用户自带版式。",
+        "用户输入的是简历内容和目标 JD，不是自定义排版。",
+        "网页里改的是结构化区块，不是自由页面布局。"
+      ]
+    },
+    "guardrail": {
+      "title": "改写边界",
+      "description": "这些规则定义了未来接入 AI 定制后，系统该如何工作。",
+      "items": [
+        "不能捏造源简历里不存在的事实。",
+        "导出前必须保留可审核的版本差异。",
+        "最终结果必须重新回填到固定模板中。"
+      ]
+    }
+  },
+  "sections": {
+    "title": "模板字段结构",
+    "description": "首个模板已经足够明确地定义出抽取和在线编辑所需的字段结构。"
+  },
+  "notes": {
+    "title": "为什么要先做这些",
+    "description": "这些说明是在上传和导出服务落地前，对产品边界做出的先行约束。"
+  },
+  "studio": {
+    "upload_title": "上传并解析简历",
+    "upload_description": "用户上传的不是模板，而是已有简历文件。系统会先抽取文本，再交给 AI 萃取成结构化内容。",
+    "file_label": "简历文件",
+    "helper": "当前支持 PDF 与 DOCX。文件会绑定到固定模板工作流中。",
+    "submit": "上传并解析",
+    "pending": "解析中...",
+    "success": "简历已解析并写入工作台",
+    "error": "简历解析失败",
+    "no_file": "请先选择简历文件",
+    "library_title": "已保存的简历版本",
+    "library_description": "这里展示当前账号下已经进入固定模板流程的简历记录。",
+    "empty": "还没有简历记录。先上传一份 PDF 或 DOCX，让系统完成第一轮结构化抽取。",
+    "open_tailoring": "去做岗位定制",
+    "download_source": "查看原文件",
+    "match_score": "匹配度 {score}%",
+    "education_count": "教育经历 {count} 段",
+    "experience_count": "经历区块 {count} 段",
+    "status": {
+      "parsed": "已解析",
+      "tailored": "已定制",
+      "archived": "已归档"
+    }
+  }
+}

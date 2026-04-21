@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "badge": "Controlled template",
+    "file": "Template file",
+    "languages": "Supported languages",
+    "outputs": "Output formats"
+  },
+  "sections": {
+    "title": "Template sections",
+    "description": "These sections define how uploaded resumes are mapped into structured content."
+  },
+  "notes": {
+    "title": "Implementation notes",
+    "description": "These notes explain why the template is managed as a fixed product asset."
+  }
+}
