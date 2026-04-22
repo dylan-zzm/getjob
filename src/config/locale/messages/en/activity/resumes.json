@@ -53,6 +53,7 @@
     "library_title": "Saved resume versions",
     "library_description": "These are the resume records that already entered the fixed-template workflow.",
     "empty": "No resume records yet. Upload a PDF or DOCX to create the first structured version.",
+    "edit_resume": "Edit online",
     "open_tailoring": "Open JD tailoring",
     "download_source": "Open source file",
     "match_score": "Match {score}%",
@@ -62,6 +63,37 @@
       "parsed": "Parsed",
       "tailored": "Tailored",
       "archived": "Archived"
+    }
+  },
+  "editor": {
+    "page_title": "Edit structured resume content",
+    "page_description": "This editor updates the base structured resume. Saving here clears the old tailoring result so the next JD run starts from clean source data.",
+    "title": "Base resume editor",
+    "description": "Clean up the source resume first, then run JD tailoring on top of it.",
+    "save": "Save changes",
+    "saving": "Saving...",
+    "success": "Resume updated",
+    "error": "Failed to save",
+    "fields": {
+      "resume_title": "Resume title",
+      "name": "Name",
+      "headline": "Headline",
+      "email": "Email",
+      "phone": "Phone",
+      "wechat": "WeChat",
+      "location": "Location",
+      "availability": "Availability",
+      "summary": "Summary"
+    },
+    "sections": {
+      "skills": "Skills",
+      "skills_description": "One group per line. Suggested format: Group: Summary (keyword 1 / keyword 2)",
+      "strengths": "Strengths",
+      "strengths_description": "One item per line. Suggested format: Title: Description",
+      "education": "Education",
+      "education_description": "One block per education item with a blank line between blocks. First line: School | Degree | Major | Start - End",
+      "experience": "Experience",
+      "experience_description": "One block per experience item with a blank line between blocks. First line: Company | Team | Role | Start - End, second line optional responsibility mix, then one bullet per line"
     }
   }
 }

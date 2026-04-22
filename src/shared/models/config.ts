@@ -15,6 +15,28 @@ export type UpdateConfig = Partial<Omit<NewConfig, 'name'>>;
 export type Configs = Record<string, string>;
 
 export const CACHE_TAG_CONFIGS = 'configs';
+const CONFIG_DB_RETRY_INTERVAL_MS = 60_000;
+
+let lastConfigDbFailureAt = 0;
+let lastConfigDbFailureMessage = '';
+
+function shouldAttemptConfigDbRead() {
+  if (!lastConfigDbFailureAt) {
+    return true;
+  }
+
+  return Date.now() - lastConfigDbFailureAt > CONFIG_DB_RETRY_INTERVAL_MS;
+}
+
+function markConfigDbFailure(error: unknown) {
+  lastConfigDbFailureAt = Date.now();
+
+  const message = error instanceof Error ? error.message : String(error);
+  if (message !== lastConfigDbFailureMessage) {
+    lastConfigDbFailureMessage = message;
+    console.warn('config db unavailable, fallback to env configs:', message);
+  }
+}
 
 export async function saveConfigs(configs: Record<string, string>) {
   const result = await db().transaction(async (tx: any) => {
@@ -53,20 +75,27 @@ export const getConfigs = unstable_cache(
   async (): Promise<Configs> => {
     const configs: Record<string, string> = {};
 
-    if (!envConfigs.database_url) {
+    if (!envConfigs.database_url || !shouldAttemptConfigDbRead()) {
       return configs;
     }
 
-    const result = await db().select().from(config);
-    if (!result) {
+    try {
+      const result = await db().select().from(config);
+      if (!result) {
+        return configs;
+      }
+
+      for (const config of result) {
+        configs[config.name] = config.value ?? '';
+      }
+
+      lastConfigDbFailureAt = 0;
+      lastConfigDbFailureMessage = '';
+      return configs;
+    } catch (error) {
+      markConfigDbFailure(error);
       return configs;
     }
-
-    for (const config of result) {
-      configs[config.name] = config.value ?? '';
-    }
-
-    return configs;
   },
   ['configs'],
   {
@@ -79,13 +108,12 @@ export async function getAllConfigs(): Promise<Configs> {
   let dbConfigs: Configs = {};
 
   // only get configs from db in server side
-  if (typeof window === 'undefined' && envConfigs.database_url) {
-    try {
-      dbConfigs = await getConfigs();
-    } catch (e) {
-      console.log(`get configs from db failed:`, e);
-      dbConfigs = {};
-    }
+  if (
+    typeof window === 'undefined' &&
+    envConfigs.database_url &&
+    shouldAttemptConfigDbRead()
+  ) {
+    dbConfigs = await getConfigs();
   }
 
   const settingNames = await getAllSettingNames();

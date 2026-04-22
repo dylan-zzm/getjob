@@ -69,7 +69,7 @@ export default async function ResumesPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Button asChild>
-                <Link href="/activity/tailoring">{t('hero.primary_button')}</Link>
+                <Link href="/activity/intake">{t('hero.primary_button')}</Link>
               </Button>
               <Button asChild variant="outline">
                 <Link href="/settings/templates">{t('hero.secondary_button')}</Link>

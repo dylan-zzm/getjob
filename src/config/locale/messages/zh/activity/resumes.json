@@ -53,6 +53,7 @@
     "library_title": "已保存的简历版本",
     "library_description": "这里展示当前账号下已经进入固定模板流程的简历记录。",
     "empty": "还没有简历记录。先上传一份 PDF 或 DOCX，让系统完成第一轮结构化抽取。",
+    "edit_resume": "在线编辑",
     "open_tailoring": "去做岗位定制",
     "download_source": "查看原文件",
     "match_score": "匹配度 {score}%",
@@ -62,6 +63,37 @@
       "parsed": "已解析",
       "tailored": "已定制",
       "archived": "已归档"
+    }
+  },
+  "editor": {
+    "page_title": "在线编辑简历内容",
+    "page_description": "这里编辑的是结构化基础简历。保存后会重置旧的岗位定制结果，后续需要重新发起一次 JD 定制。",
+    "title": "基础简历编辑",
+    "description": "先把基础信息、摘要、教育和经历整理干净，再去做岗位定制，结果会稳定很多。",
+    "save": "保存修改",
+    "saving": "保存中...",
+    "success": "简历内容已更新",
+    "error": "保存失败",
+    "fields": {
+      "resume_title": "简历标题",
+      "name": "姓名",
+      "headline": "职位标题",
+      "email": "邮箱",
+      "phone": "手机号",
+      "wechat": "微信",
+      "location": "工作地点",
+      "availability": "到岗状态",
+      "summary": "个人摘要"
+    },
+    "sections": {
+      "skills": "技能",
+      "skills_description": "每行一组，格式建议：分类: 描述 (关键词1 / 关键词2)",
+      "strengths": "个人优势",
+      "strengths_description": "每行一条，格式建议：标题: 说明",
+      "education": "教育经历",
+      "education_description": "每段一条教育经历，段落之间空一行。首行格式：学校 | 学历 | 专业 | 开始 - 结束",
+      "experience": "工作 / 实习 / 项目经历",
+      "experience_description": "每段一条经历，段落之间空一行。首行格式：公司 | 团队 | 岗位 | 开始 - 结束，第二行可写职责占比，后续每行一条 bullet"
     }
   }
 }

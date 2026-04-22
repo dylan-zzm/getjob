@@ -156,6 +156,11 @@ export function ResumeStudioClient({
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <Button asChild size="sm" variant="outline">
+                      <Link href={`/activity/resumes/${resume.id}`}>
+                        {t('studio.edit_resume')}
+                      </Link>
+                    </Button>
+                    <Button asChild size="sm" variant="outline">
                       <Link href={`/activity/tailoring?resumeId=${resume.id}`}>
                         {t('studio.open_tailoring')}
                       </Link>

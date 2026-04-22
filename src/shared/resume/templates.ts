@@ -16,6 +16,8 @@ export interface ResumeTemplateDefinition {
   descriptionZh: string;
   fileName: string;
   filePath: string;
+  renderTemplateFileName: string;
+  renderTemplatePath: string;
   sourceFormat: 'docx';
   importedFrom: string;
   languages: string[];
@@ -37,6 +39,8 @@ export const resumeTemplates: ResumeTemplateDefinition[] = [
       '一套固定的简历模板，围绕产品、AI、数据经历和中英双语交付组织内容。',
     fileName: 'xiaoming-resume-template.docx',
     filePath: 'content/templates/xiaoming-resume-template.docx',
+    renderTemplateFileName: 'xiaoming-resume-export-template.docx',
+    renderTemplatePath: 'content/templates/xiaoming-resume-export-template.docx',
     sourceFormat: 'docx',
     importedFrom: '/Users/mac/Desktop/小明简历.docx',
     languages: ['zh-CN', 'en-US'],

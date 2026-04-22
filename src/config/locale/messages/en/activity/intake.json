@@ -1,0 +1,85 @@
+{
+  "hero": {
+    "badge": "Clear Entry",
+    "title": "Start a job-targeted resume run",
+    "description": "Use one entry point to upload the source resume, define the target role, and paste or upload the target JD. The system parses the resume first and then generates the first tailored version."
+  },
+  "cards": {
+    "template": {
+      "title": "Fixed template",
+      "name": "Template",
+      "output": "Output formats"
+    },
+    "resume": {
+      "title": "Resume input",
+      "description": "The user uploads an existing resume file, not a layout template.",
+      "items": [
+        "Currently supports PDF and DOCX resumes.",
+        "The system extracts text first and converts it into structured resume data.",
+        "That structured data then powers editing, tailoring, and export."
+      ]
+    },
+    "jd": {
+      "title": "Job target input",
+      "description": "The JD can be pasted directly or attached as a file.",
+      "items": [
+        "Provide the target role title for this delivery run.",
+        "Paste the full JD body when available.",
+        "You can also upload a PDF, DOCX, TXT, or MD JD file."
+      ]
+    }
+  },
+  "form": {
+    "badge": "Unified Entry",
+    "title": "Upload a resume and start tailoring",
+    "description": "Submitting this form automatically runs resume parsing, structured storage, and the first JD-based rewrite. On success, the workflow jumps to the tailoring result page.",
+    "resume_label": "Resume file",
+    "resume_helper": "Supports PDF and DOCX. Upload the source resume you want to tailor.",
+    "role_label": "Target role",
+    "role_placeholder": "Example: AI Product Manager / Growth Product Manager / Data Analyst",
+    "jd_label": "Job description",
+    "jd_placeholder": "Paste the full JD, including responsibilities, requirements, keywords, and bonus signals.",
+    "jd_helper": "If you also upload a JD file, you can use this field for extra notes or copied requirements.",
+    "jd_file_label": "Upload JD file (optional)",
+    "jd_file_helper": "Supports PDF, DOCX, TXT, and MD. If both text and file are provided, the system merges both sources.",
+    "submit": "Parse and tailor",
+    "pending": "Processing...",
+    "success": "Resume parsed and tailored successfully",
+    "partial_success": "Resume parsed, but tailoring failed. You can retry on the next page.",
+    "error": "Submission failed. Please try again.",
+    "errors": {
+      "resume_required": "Upload a resume file first",
+      "role_required": "Enter the target role first",
+      "jd_required": "Paste the JD or upload a JD file"
+    }
+  },
+  "workflow": {
+    "title": "What this entry does automatically",
+    "description": "This page collapses what used to be a multi-page flow into one clear submission step.",
+    "items": [
+      {
+        "title": "Parse the resume file",
+        "description": "Extract text from the PDF or DOCX and convert it into structured resume data."
+      },
+      {
+        "title": "Assemble the job target",
+        "description": "Combine the role title, JD text, and any uploaded JD file content."
+      },
+      {
+        "title": "Generate the first tailored version",
+        "description": "Produce the first job-targeted rewrite without fabricating facts, then store it in the fixed-template workflow."
+      }
+    ]
+  },
+  "recent": {
+    "title": "Recent resume runs",
+    "description": "These records already entered the fixed-template workflow and can be reviewed or re-tailored.",
+    "empty": "No records yet. Use the form on the left to upload the first resume and target JD.",
+    "open": "Open result",
+    "status": {
+      "parsed": "Parsed",
+      "tailored": "Tailored",
+      "archived": "Archived"
+    }
+  }
+}

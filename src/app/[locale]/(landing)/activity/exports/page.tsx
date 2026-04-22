@@ -9,7 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/components/ui/card';
+import { getResumes, parseResumeAnalysis } from '@/shared/models/resume';
 import { getUserInfo } from '@/shared/models/user';
+import { ResumeExportsClient } from '@/shared/resume/components/resume-exports-client';
 import { defaultResumeTemplate } from '@/shared/resume/templates';
 
 export default async function ExportsPage() {
@@ -19,6 +21,20 @@ export default async function ExportsPage() {
   }
 
   const t = await getTranslations('activity.exports');
+  const resumes = await getResumes({ userId: user.id });
+  const exportItems = resumes.map((item) => {
+    const analysis = parseResumeAnalysis(item.analysis);
+
+    return {
+      id: item.id,
+      title: item.title,
+      status: item.status,
+      targetRole: item.targetRole,
+      sourceFileName: item.sourceFileName,
+      matchScore: analysis?.matchScore || 0,
+      updatedAt: item.updatedAt.toLocaleString(),
+    };
+  });
 
   return (
     <div className="space-y-6">
@@ -102,6 +118,8 @@ export default async function ExportsPage() {
           ))}
         </CardContent>
       </Card>
+
+      <ResumeExportsClient resumes={exportItems} />
     </div>
   );
 }

@@ -1,12 +1,40 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import { drizzle as drizzleNeonServerless } from 'drizzle-orm/neon-serverless';
+import { drizzle as drizzlePostgresJs } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
 import { envConfigs } from '@/config';
 import { isCloudflareWorker } from '@/shared/lib/env';
 
 // Global database connection instance (singleton pattern)
-let dbInstance: ReturnType<typeof drizzle> | null = null;
-let client: ReturnType<typeof postgres> | null = null;
+let dbInstance:
+  | ReturnType<typeof drizzlePostgresJs>
+  | ReturnType<typeof drizzleNeonServerless>
+  | null = null;
+let client: ReturnType<typeof postgres> | Pool | null = null;
+
+function shouldUseNeonServerless(databaseUrl: string) {
+  if (process.env.DATABASE_USE_NEON_SERVERLESS === 'true') {
+    return true;
+  }
+
+  try {
+    return new URL(databaseUrl).hostname.includes('neon.tech');
+  } catch {
+    return databaseUrl.includes('neon.tech');
+  }
+}
+
+function ensureNeonRuntimeConfig() {
+  neonConfig.poolQueryViaFetch = true;
+
+  if (
+    typeof globalThis.WebSocket !== 'undefined' &&
+    !neonConfig.webSocketConstructor
+  ) {
+    neonConfig.webSocketConstructor = globalThis.WebSocket;
+  }
+}
 
 export function getPostgresDb() {
   let databaseUrl = envConfigs.database_url;
@@ -34,9 +62,24 @@ export function getPostgresDb() {
     throw new Error('DATABASE_URL is not set');
   }
 
+  const useNeonServerless = shouldUseNeonServerless(databaseUrl);
+
   // In Cloudflare Workers, create new connection each time
   if (isCloudflareWorker) {
     console.log('in Cloudflare Workers environment');
+
+    if (useNeonServerless) {
+      ensureNeonRuntimeConfig();
+      const pool = new Pool({
+        connectionString: databaseUrl,
+        max: 1,
+        idleTimeoutMillis: 10_000,
+        connectionTimeoutMillis: 5_000,
+      });
+
+      return drizzleNeonServerless({ client: pool });
+    }
+
     // Workers environment uses minimal configuration
     const client = postgres(databaseUrl, {
       prepare: false,
@@ -46,13 +89,27 @@ export function getPostgresDb() {
       ...connectionSchemaOptions,
     });
 
-    return drizzle(client);
+    return drizzlePostgresJs(client);
   }
 
   // Singleton mode: reuse existing connection (good for traditional servers and serverless warm starts)
   if (envConfigs.db_singleton_enabled === 'true') {
     // Return existing instance if already initialized
     if (dbInstance) {
+      return dbInstance;
+    }
+
+    if (useNeonServerless) {
+      ensureNeonRuntimeConfig();
+
+      client = new Pool({
+        connectionString: databaseUrl,
+        max: Number(envConfigs.db_max_connections) || 1,
+        idleTimeoutMillis: 30_000,
+        connectionTimeoutMillis: 10_000,
+      });
+
+      dbInstance = drizzleNeonServerless({ client });
       return dbInstance;
     }
 
@@ -65,8 +122,21 @@ export function getPostgresDb() {
       ...connectionSchemaOptions,
     });
 
-    dbInstance = drizzle({ client });
+    dbInstance = drizzlePostgresJs({ client });
     return dbInstance;
+  }
+
+  if (useNeonServerless) {
+    ensureNeonRuntimeConfig();
+
+    const pool = new Pool({
+      connectionString: databaseUrl,
+      max: 1,
+      idleTimeoutMillis: 20_000,
+      connectionTimeoutMillis: 10_000,
+    });
+
+    return drizzleNeonServerless({ client: pool });
   }
 
   // Non-singleton mode: create new connection each time (good for serverless)
@@ -79,7 +149,7 @@ export function getPostgresDb() {
     ...connectionSchemaOptions,
   });
 
-  return drizzle({ client: serverlessClient });
+  return drizzlePostgresJs({ client: serverlessClient });
 }
 
 // Optional: Function to close database connection (useful for testing or graceful shutdown)

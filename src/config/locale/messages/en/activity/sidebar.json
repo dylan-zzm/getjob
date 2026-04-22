@@ -3,6 +3,11 @@
   "nav": {
     "items": [
       {
+        "title": "Start Tailoring",
+        "url": "/activity/intake",
+        "icon": "Briefcase"
+      },
+      {
         "title": "Resume Studio",
         "url": "/activity/resumes",
         "icon": "FileText"

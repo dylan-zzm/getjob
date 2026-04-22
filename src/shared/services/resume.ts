@@ -1,3 +1,7 @@
+import 'server-only';
+
+import { createRequire } from 'node:module';
+
 import { md5 } from '@/shared/lib/hash';
 import {
   parseStructuredResume,
@@ -15,12 +19,20 @@ import {
 import { callEvolinkTool } from './evolink';
 import { getStorageService } from './storage';
 
+const require = createRequire(import.meta.url);
+
 const supportedResumeMimeTypes = [
   'application/pdf',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
 
 const supportedResumeExtensions = ['pdf', 'docx'];
+const supportedJobDescriptionMimeTypes = [
+  ...supportedResumeMimeTypes,
+  'text/plain',
+  'text/markdown',
+];
+const supportedJobDescriptionExtensions = ['pdf', 'docx', 'txt', 'md'];
 
 export function isSupportedResumeFile(fileName: string, mimeType?: string) {
   const extension = getFileExtension(fileName);
@@ -32,6 +44,24 @@ export function isSupportedResumeFile(fileName: string, mimeType?: string) {
 
 export function getSupportedResumeAccept() {
   return '.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+}
+
+export function isSupportedJobDescriptionFile(
+  fileName: string,
+  mimeType?: string
+) {
+  const extension = getFileExtension(fileName);
+  return (
+    supportedJobDescriptionExtensions.includes(extension) ||
+    Boolean(
+      mimeType && supportedJobDescriptionMimeTypes.includes(mimeType)
+    ) ||
+    Boolean(mimeType && mimeType.startsWith('text/'))
+  );
+}
+
+export function getSupportedJobDescriptionAccept() {
+  return '.pdf,.docx,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown';
 }
 
 export async function extractTextFromResumeFile({
@@ -48,18 +78,50 @@ export async function extractTextFromResumeFile({
   if (extension === 'docx') {
     const mammoth = await import('mammoth');
     const result = await mammoth.extractRawText({ buffer });
-    return normalizeResumeText(result.value);
+    return normalizeDocumentText(result.value);
   }
 
   if (extension === 'pdf' || mimeType === 'application/pdf') {
-    const { PDFParse } = await import('pdf-parse');
+    const { PDFParse } = getPdfParseModule();
     const parser = new PDFParse({ data: buffer });
     const result = await parser.getText();
     await parser.destroy();
-    return normalizeResumeText(result.text);
+    return normalizeDocumentText(result.text);
   }
 
   throw new Error('Only PDF and DOCX resumes are supported for parsing');
+}
+
+export async function extractTextFromJobDescriptionFile({
+  buffer,
+  fileName,
+  mimeType,
+}: {
+  buffer: Buffer;
+  fileName: string;
+  mimeType?: string;
+}) {
+  const extension = getFileExtension(fileName);
+
+  if (extension === 'txt' || extension === 'md' || mimeType?.startsWith('text/')) {
+    return normalizeDocumentText(buffer.toString('utf8'));
+  }
+
+  if (extension === 'docx') {
+    const mammoth = await import('mammoth');
+    const result = await mammoth.extractRawText({ buffer });
+    return normalizeDocumentText(result.value);
+  }
+
+  if (extension === 'pdf' || mimeType === 'application/pdf') {
+    const { PDFParse } = getPdfParseModule();
+    const parser = new PDFParse({ data: buffer });
+    const result = await parser.getText();
+    await parser.destroy();
+    return normalizeDocumentText(result.text);
+  }
+
+  throw new Error('Only PDF, DOCX, TXT, and MD JD files are supported');
 }
 
 export async function uploadResumeSourceFile({
@@ -203,6 +265,24 @@ function getFileExtension(fileName: string) {
   return fileName.split('.').pop()?.toLowerCase() || '';
 }
 
-function normalizeResumeText(text: string) {
+function normalizeDocumentText(text: string) {
   return text.replace(/\r/g, '').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+type PdfParseModule = {
+  PDFParse: new (options: { data: Buffer | Uint8Array }) => {
+    getText(): Promise<{ text: string }>;
+    destroy(): Promise<void>;
+  };
+};
+
+let cachedPdfParseModule: PdfParseModule | null = null;
+
+function getPdfParseModule(): PdfParseModule {
+  if (cachedPdfParseModule) {
+    return cachedPdfParseModule;
+  }
+
+  cachedPdfParseModule = require('pdf-parse') as PdfParseModule;
+  return cachedPdfParseModule;
 }

@@ -3,6 +3,11 @@
   "nav": {
     "items": [
       {
+        "title": "开始定制",
+        "url": "/activity/intake",
+        "icon": "Briefcase"
+      },
+      {
         "title": "简历中心",
         "url": "/activity/resumes",
         "icon": "FileText"

@@ -1,0 +1,85 @@
+{
+  "hero": {
+    "badge": "明确入口",
+    "title": "开始一次岗位投递定制",
+    "description": "在一个入口里完成：上传你自己的简历、填写目标岗位名称、粘贴或上传目标 JD。系统会先解析简历，再直接生成第一版岗位定制结果。"
+  },
+  "cards": {
+    "template": {
+      "title": "固定模板",
+      "name": "模板名称",
+      "output": "导出格式"
+    },
+    "resume": {
+      "title": "简历输入",
+      "description": "用户上传的是现有简历文件，不是版式模板。",
+      "items": [
+        "当前支持 PDF 与 DOCX 简历。",
+        "系统会先抽取文本，再整理成结构化简历。",
+        "结构化结果会进入在线编辑和导出流程。"
+      ]
+    },
+    "jd": {
+      "title": "目标岗位输入",
+      "description": "JD 可以直接粘贴，也可以附带文件上传。",
+      "items": [
+        "输入目标岗位名称，明确本次投递方向。",
+        "JD 支持粘贴完整正文。",
+        "也支持上传 PDF、DOCX、TXT、MD 格式的 JD 文件。"
+      ]
+    }
+  },
+  "form": {
+    "badge": "统一入口",
+    "title": "上传简历并发起岗位定制",
+    "description": "提交后会自动完成：简历解析、结构化入库、岗位匹配改写。成功后会跳转到岗位定制结果页。",
+    "resume_label": "简历文件",
+    "resume_helper": "支持 PDF 与 DOCX，建议上传你当前准备投递的原始简历。",
+    "role_label": "目标岗位名称",
+    "role_placeholder": "例如：AI 产品经理 / 增长产品经理 / 数据分析师",
+    "jd_label": "JD 正文",
+    "jd_placeholder": "直接粘贴完整 JD，包含职责、要求、关键词和加分项。",
+    "jd_helper": "如果你已经上传了 JD 文件，这里也可以额外补充说明。",
+    "jd_file_label": "上传 JD 文件（可选）",
+    "jd_file_helper": "支持 PDF、DOCX、TXT、MD。若填写了文本并上传了文件，系统会合并两者内容。",
+    "submit": "开始解析并定制",
+    "pending": "处理中...",
+    "success": "简历已解析并生成岗位定制结果",
+    "partial_success": "简历已解析，但岗位定制失败。你可以在下一页重试。",
+    "error": "提交失败，请稍后重试",
+    "errors": {
+      "resume_required": "请先上传简历文件",
+      "role_required": "请先填写目标岗位名称",
+      "jd_required": "请粘贴 JD 或上传 JD 文件"
+    }
+  },
+  "workflow": {
+    "title": "系统会自动完成什么",
+    "description": "这个入口把原本分散在多个页面的步骤收拢到了一次提交中。",
+    "items": [
+      {
+        "title": "解析简历文件",
+        "description": "抽取 PDF 或 DOCX 中的文本内容，并转成结构化简历。"
+      },
+      {
+        "title": "整理目标岗位信息",
+        "description": "合并岗位名称、JD 正文和上传的 JD 文件内容。"
+      },
+      {
+        "title": "生成岗位定制版本",
+        "description": "在不捏造事实的前提下，输出第一版定制结果并写回固定模板工作流。"
+      }
+    ]
+  },
+  "recent": {
+    "title": "最近处理的简历",
+    "description": "这些记录已经进入固定模板工作流，可以继续查看或重跑岗位定制。",
+    "empty": "还没有历史记录。先用左侧入口上传第一份简历和目标 JD。",
+    "open": "查看结果",
+    "status": {
+      "parsed": "已解析",
+      "tailored": "已定制",
+      "archived": "已归档"
+    }
+  }
+}

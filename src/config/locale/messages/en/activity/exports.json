@@ -55,5 +55,19 @@
       "The product should export from structured resume data, not from an edited browser copy of the Word file.",
       "Future templates can share the same export pipeline as long as they fit the registry and placeholder rules."
     ]
+  },
+  "downloads": {
+    "title": "Export saved resume versions",
+    "description": "Download a fixed-template DOCX from here. PDF becomes available when a converter exists in the environment.",
+    "empty": "No exportable resumes yet. Upload and tailor a resume first, then come back here.",
+    "docx": "Download DOCX",
+    "pdf": "Download PDF",
+    "error": "Export failed",
+    "score": "Match {score}%",
+    "status": {
+      "parsed": "Parsed",
+      "tailored": "Tailored",
+      "archived": "Archived"
+    }
   }
 }
