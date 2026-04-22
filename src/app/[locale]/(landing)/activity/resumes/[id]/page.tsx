@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Empty } from '@/shared/blocks/common';
 import {
@@ -8,6 +8,7 @@ import {
 } from '@/shared/models/resume';
 import { getUserInfo } from '@/shared/models/user';
 import { ResumeEditorClient } from '@/shared/resume/components/resume-editor-client';
+import { getResumeTemplateById } from '@/shared/resume/templates';
 
 export default async function ResumeEditorPage({
   params,
@@ -30,10 +31,13 @@ export default async function ResumeEditorPage({
   }
 
   const t = await getTranslations('activity.resumes.editor');
+  const locale = await getLocale();
   const content = parseResumeContent(resume.baseContent);
   if (!content) {
     notFound();
   }
+
+  const template = getResumeTemplateById(resume.templateId);
 
   return (
     <div className="space-y-6">
@@ -47,7 +51,9 @@ export default async function ResumeEditorPage({
       <ResumeEditorClient
         initialContent={content}
         initialTitle={resume.title}
+        locale={locale}
         resumeId={resume.id}
+        template={template}
       />
     </div>
   );

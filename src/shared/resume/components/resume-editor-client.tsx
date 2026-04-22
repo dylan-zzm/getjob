@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useMemo, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 
@@ -16,6 +16,8 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { StructuredResume } from '@/shared/resume/schema';
+import { ResumeTemplatePreview } from '@/shared/resume/components/resume-template-preview';
+import { type ResumeTemplateDefinition } from '@/shared/resume/templates';
 
 function splitLines(value: string) {
   return value
@@ -28,10 +30,14 @@ export function ResumeEditorClient({
   resumeId,
   initialTitle,
   initialContent,
+  template,
+  locale,
 }: {
   resumeId: string;
   initialTitle: string;
   initialContent: StructuredResume;
+  template: ResumeTemplateDefinition;
+  locale: string;
 }) {
   const t = useTranslations('activity.resumes.editor');
   const router = useRouter();
@@ -86,11 +92,10 @@ export function ResumeEditorClient({
       .join('\n\n')
   );
 
-  const handleSave = async () => {
-    const content: StructuredResume = {
-      ...initialContent,
-      basics: {
-        ...initialContent.basics,
+  const draftContent = useMemo(
+    () =>
+      buildDraftResumeContent({
+        initialContent,
         name,
         headline,
         email,
@@ -98,77 +103,30 @@ export function ResumeEditorClient({
         wechat,
         location,
         availability,
-      },
+        summary,
+        skillsText,
+        strengthsText,
+        educationText,
+        experienceText,
+      }),
+    [
+      availability,
+      educationText,
+      email,
+      experienceText,
+      headline,
+      initialContent,
+      location,
+      name,
+      phone,
+      skillsText,
+      strengthsText,
       summary,
-      skills: splitLines(skillsText).map((line) => {
-        const [groupPart, rest = ''] = line.split(':');
-        const match = rest.match(/^(.*?)(?:\((.*)\))?$/);
-        const summaryText = match?.[1]?.trim() || rest.trim();
-        const itemsText = match?.[2]
-          ? match[2]
-              .split('/')
-              .map((item) => item.trim())
-              .filter(Boolean)
-          : [];
-        return {
-          group: groupPart.trim(),
-          summary: summaryText,
-          items: itemsText,
-        };
-      }),
-      strengths: splitLines(strengthsText).map((line) => {
-        const [titlePart, ...desc] = line.split(':');
-        return {
-          title: titlePart.trim(),
-          description: desc.join(':').trim(),
-        };
-      }),
-      education: educationText
-        .split('\n\n')
-        .map((block) => block.trim())
-        .filter(Boolean)
-        .map((block) => {
-          const lines = splitLines(block);
-          const [header = '', rankingLine = '', ...rest] = lines;
-          const [school = '', degree = '', major = '', dates = ''] = header
-            .split('|')
-            .map((item) => item.trim());
-          const [start = '', end = ''] = dates.split('-').map((item) => item.trim());
-          return {
-            school,
-            degree,
-            major,
-            dateRange: { start, end },
-            ranking: rankingLine,
-            honors: rest,
-            bullets: [],
-          };
-        }),
-      experiences: experienceText
-        .split('\n\n')
-        .map((block) => block.trim())
-        .filter(Boolean)
-        .map((block, index) => {
-          const lines = splitLines(block);
-          const [header = '', mix = '', ...bullets] = lines;
-          const [company = '', team = '', role = '', dates = ''] = header
-            .split('|')
-            .map((item) => item.trim());
-          const [start = '', end = ''] = dates.split('-').map((item) => item.trim());
-          return {
-            type: initialContent.experiences[index]?.type || 'other',
-            company,
-            team,
-            role,
-            location: initialContent.experiences[index]?.location || '',
-            dateRange: { start, end },
-            responsibilityMix: mix,
-            bullets,
-            keywords: initialContent.experiences[index]?.keywords || [],
-          };
-        }),
-    };
+      wechat,
+    ]
+  );
 
+  const handleSave = async () => {
     startTransition(async () => {
       const resp = await fetch('/api/resume/update', {
         method: 'POST',
@@ -178,7 +136,7 @@ export function ResumeEditorClient({
         body: JSON.stringify({
           resumeId,
           title,
-          content,
+          content: draftContent,
         }),
       });
       const payload = await resp.json();
@@ -194,112 +152,124 @@ export function ResumeEditorClient({
   };
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('title')}</CardTitle>
-          <CardDescription>{t('description')}</CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-2">
-          <div className="space-y-2 md:col-span-2">
-            <label className="text-sm font-medium">{t('fields.resume_title')}</label>
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
-          </div>
-          <Field label={t('fields.name')}>
-            <Input value={name} onChange={(e) => setName(e.target.value)} />
-          </Field>
-          <Field label={t('fields.headline')}>
-            <Input value={headline} onChange={(e) => setHeadline(e.target.value)} />
-          </Field>
-          <Field label={t('fields.email')}>
-            <Input value={email} onChange={(e) => setEmail(e.target.value)} />
-          </Field>
-          <Field label={t('fields.phone')}>
-            <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
-          </Field>
-          <Field label={t('fields.wechat')}>
-            <Input value={wechat} onChange={(e) => setWechat(e.target.value)} />
-          </Field>
-          <Field label={t('fields.location')}>
-            <Input value={location} onChange={(e) => setLocation(e.target.value)} />
-          </Field>
-          <Field label={t('fields.availability')}>
-            <Input
-              value={availability}
-              onChange={(e) => setAvailability(e.target.value)}
-            />
-          </Field>
-          <div className="space-y-2 md:col-span-2">
-            <label className="text-sm font-medium">{t('fields.summary')}</label>
+    <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.95fr)]">
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('title')}</CardTitle>
+            <CardDescription>{t('description')}</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-sm font-medium">{t('fields.resume_title')}</label>
+              <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+            </div>
+            <Field label={t('fields.name')}>
+              <Input value={name} onChange={(e) => setName(e.target.value)} />
+            </Field>
+            <Field label={t('fields.headline')}>
+              <Input value={headline} onChange={(e) => setHeadline(e.target.value)} />
+            </Field>
+            <Field label={t('fields.email')}>
+              <Input value={email} onChange={(e) => setEmail(e.target.value)} />
+            </Field>
+            <Field label={t('fields.phone')}>
+              <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
+            </Field>
+            <Field label={t('fields.wechat')}>
+              <Input value={wechat} onChange={(e) => setWechat(e.target.value)} />
+            </Field>
+            <Field label={t('fields.location')}>
+              <Input value={location} onChange={(e) => setLocation(e.target.value)} />
+            </Field>
+            <Field label={t('fields.availability')}>
+              <Input
+                value={availability}
+                onChange={(e) => setAvailability(e.target.value)}
+              />
+            </Field>
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-sm font-medium">{t('fields.summary')}</label>
+              <Textarea
+                className="min-h-28"
+                value={summary}
+                onChange={(e) => setSummary(e.target.value)}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('sections.skills')}</CardTitle>
+            <CardDescription>{t('sections.skills_description')}</CardDescription>
+          </CardHeader>
+          <CardContent>
             <Textarea
-              className="min-h-28"
-              value={summary}
-              onChange={(e) => setSummary(e.target.value)}
+              className="min-h-36"
+              value={skillsText}
+              onChange={(e) => setSkillsText(e.target.value)}
             />
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('sections.skills')}</CardTitle>
-          <CardDescription>{t('sections.skills_description')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Textarea
-            className="min-h-36"
-            value={skillsText}
-            onChange={(e) => setSkillsText(e.target.value)}
-          />
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('sections.strengths')}</CardTitle>
+            <CardDescription>{t('sections.strengths_description')}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Textarea
+              className="min-h-36"
+              value={strengthsText}
+              onChange={(e) => setStrengthsText(e.target.value)}
+            />
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('sections.strengths')}</CardTitle>
-          <CardDescription>{t('sections.strengths_description')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Textarea
-            className="min-h-36"
-            value={strengthsText}
-            onChange={(e) => setStrengthsText(e.target.value)}
-          />
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('sections.education')}</CardTitle>
+            <CardDescription>{t('sections.education_description')}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Textarea
+              className="min-h-52"
+              value={educationText}
+              onChange={(e) => setEducationText(e.target.value)}
+            />
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('sections.education')}</CardTitle>
-          <CardDescription>{t('sections.education_description')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Textarea
-            className="min-h-52"
-            value={educationText}
-            onChange={(e) => setEducationText(e.target.value)}
-          />
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('sections.experience')}</CardTitle>
+            <CardDescription>{t('sections.experience_description')}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Textarea
+              className="min-h-80"
+              value={experienceText}
+              onChange={(e) => setExperienceText(e.target.value)}
+            />
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('sections.experience')}</CardTitle>
-          <CardDescription>{t('sections.experience_description')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Textarea
-            className="min-h-80"
-            value={experienceText}
-            onChange={(e) => setExperienceText(e.target.value)}
-          />
-        </CardContent>
-      </Card>
+        <div className="flex justify-end">
+          <Button disabled={isPending} onClick={() => void handleSave()}>
+            {isPending ? t('saving') : t('save')}
+          </Button>
+        </div>
+      </div>
 
-      <div className="flex justify-end">
-        <Button disabled={isPending} onClick={() => void handleSave()}>
-          {isPending ? t('saving') : t('save')}
-        </Button>
+      <div className="space-y-6 xl:sticky xl:top-6 xl:self-start">
+        <ResumeTemplatePreview
+          content={draftContent}
+          description={t('preview_description')}
+          locale={locale}
+          template={template}
+          title={t('preview_title')}
+        />
       </div>
     </div>
   );
@@ -318,4 +288,139 @@ function Field({
       {children}
     </div>
   );
+}
+
+function buildDraftResumeContent({
+  initialContent,
+  name,
+  headline,
+  email,
+  phone,
+  wechat,
+  location,
+  availability,
+  summary,
+  skillsText,
+  strengthsText,
+  educationText,
+  experienceText,
+}: {
+  initialContent: StructuredResume;
+  name: string;
+  headline: string;
+  email: string;
+  phone: string;
+  wechat: string;
+  location: string;
+  availability: string;
+  summary: string;
+  skillsText: string;
+  strengthsText: string;
+  educationText: string;
+  experienceText: string;
+}): StructuredResume {
+  return {
+    ...initialContent,
+    basics: {
+      ...initialContent.basics,
+      name,
+      headline,
+      email,
+      phone,
+      wechat,
+      location,
+      availability,
+    },
+    summary,
+    skills: splitLines(skillsText).map((line) => {
+      const [groupPart, rest] = splitOnce(line, ':');
+      const match = rest.match(/^(.*?)(?:\((.*)\))?$/);
+      const summaryText = match?.[1]?.trim() || rest.trim();
+      const itemsText = match?.[2]
+        ? match[2]
+            .split('/')
+            .map((item) => item.trim())
+            .filter(Boolean)
+        : [];
+
+      return {
+        group: groupPart.trim(),
+        summary: summaryText,
+        items: itemsText,
+      };
+    }),
+    strengths: splitLines(strengthsText).map((line) => {
+      const [titlePart, description] = splitOnce(line, ':');
+      return {
+        title: titlePart.trim(),
+        description: description.trim(),
+      };
+    }),
+    education: educationText
+      .split('\n\n')
+      .map((block) => block.trim())
+      .filter(Boolean)
+      .map((block) => {
+        const lines = splitLines(block);
+        const [header = '', rankingLine = '', ...rest] = lines;
+        const [school = '', degree = '', major = '', dates = ''] = header
+          .split('|')
+          .map((item) => item.trim());
+        const [start = '', end = ''] = splitDateRange(dates);
+        return {
+          school,
+          degree,
+          major,
+          dateRange: { start, end },
+          ranking: rankingLine,
+          honors: rest,
+          bullets: [],
+        };
+      }),
+    experiences: experienceText
+      .split('\n\n')
+      .map((block) => block.trim())
+      .filter(Boolean)
+      .map((block, index) => {
+        const lines = splitLines(block);
+        const [header = '', mix = '', ...bullets] = lines;
+        const [company = '', team = '', role = '', dates = ''] = header
+          .split('|')
+          .map((item) => item.trim());
+        const [start = '', end = ''] = splitDateRange(dates);
+        return {
+          type: initialContent.experiences[index]?.type || 'other',
+          company,
+          team,
+          role,
+          location: initialContent.experiences[index]?.location || '',
+          dateRange: { start, end },
+          responsibilityMix: mix,
+          bullets,
+          keywords: initialContent.experiences[index]?.keywords || [],
+        };
+      }),
+  };
+}
+
+function splitOnce(value: string, delimiter: string) {
+  const index = value.indexOf(delimiter);
+  if (index === -1) {
+    return [value, ''];
+  }
+
+  return [value.slice(0, index), value.slice(index + delimiter.length)];
+}
+
+function splitDateRange(value: string) {
+  const normalized = value.trim();
+  const spacedHyphenMatch = normalized.match(/^(.*?)(?:\s+-\s+)(.*)$/);
+  if (spacedHyphenMatch) {
+    return [
+      spacedHyphenMatch[1]?.trim() || '',
+      spacedHyphenMatch[2]?.trim() || '',
+    ];
+  }
+
+  return [normalized, ''];
 }

@@ -70,6 +70,8 @@
     "page_description": "This editor updates the base structured resume. Saving here clears the old tailoring result so the next JD run starts from clean source data.",
     "title": "Base resume editor",
     "description": "Clean up the source resume first, then run JD tailoring on top of it.",
+    "preview_title": "Template preview",
+    "preview_description": "This panel is driven by the same template snapshot layer as DOCX export, so the on-screen layout and the exported Word structure stay aligned.",
     "save": "Save changes",
     "saving": "Saving...",
     "success": "Resume updated",
