@@ -3,6 +3,7 @@
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 
+import { extractFilenameFromContentDisposition } from '@/shared/lib/content-disposition';
 import { Badge } from '@/shared/components/ui/badge';
 import { Button } from '@/shared/components/ui/button';
 import {
@@ -49,7 +50,10 @@ export function ResumeExportsClient({
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = '';
+    anchor.download =
+      extractFilenameFromContentDisposition(
+        resp.headers.get('Content-Disposition')
+      ) || `resume-export.${format}`;
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();

@@ -1,28 +1,7 @@
 {
   "title": "Workspace",
   "nav": {
-    "items": [
-      {
-        "title": "Start Tailoring",
-        "url": "/activity/intake",
-        "icon": "Briefcase"
-      },
-      {
-        "title": "Resume Studio",
-        "url": "/activity/resumes",
-        "icon": "FileText"
-      },
-      {
-        "title": "JD Tailoring",
-        "url": "/activity/tailoring",
-        "icon": "Target"
-      },
-      {
-        "title": "Exports",
-        "url": "/activity/exports",
-        "icon": "Download"
-      }
-    ]
+    "items": []
   },
   "top_nav": {
     "items": [

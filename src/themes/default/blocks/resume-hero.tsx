@@ -1,11 +1,34 @@
-import { ArrowRight, CheckCircle2, FileText, ScanSearch, WandSparkles } from 'lucide-react';
+'use client';
 
-import { Link } from '@/core/i18n/navigation';
-import { SmartIcon } from '@/shared/blocks/common';
-import { Badge } from '@/shared/components/ui/badge';
+import { FormEvent, useState, useTransition } from 'react';
+import { ArrowRight, Loader2, UploadCloud, WandSparkles } from 'lucide-react';
+import { toast } from 'sonner';
+
+import { Link, useRouter } from '@/core/i18n/navigation';
 import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import { Textarea } from '@/shared/components/ui/textarea';
 import { cn } from '@/shared/lib/utils';
 import { Section } from '@/shared/types/blocks/landing';
+
+type HeroFormConfig = {
+  template_id?: string;
+  resume_label?: string;
+  resume_helper?: string;
+  resume_accept?: string;
+  resume_required?: string;
+  role_label?: string;
+  role_placeholder?: string;
+  role_required?: string;
+  jd_label?: string;
+  jd_placeholder?: string;
+  jd_required?: string;
+  submit?: string;
+  pending?: string;
+  success?: string;
+  error?: string;
+  auth_error?: string;
+};
 
 export function ResumeHero({
   section,
@@ -14,201 +37,188 @@ export function ResumeHero({
   section: Section;
   className?: string;
 }) {
-  const highlightText = section.highlight_text ?? '';
-  const titleParts = highlightText
-    ? section.title?.split(highlightText, 2)
-    : null;
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [targetRole, setTargetRole] = useState('');
+  const [jobDescription, setJobDescription] = useState('');
 
-  const chips = section.items ?? [];
-  const templatePreview = section.template_preview ?? {};
-  const jdPreview = section.jd_preview ?? {};
-  const resultPreview = section.result_preview ?? {};
+  const form = (section.form || {}) as HeroFormConfig;
+  const templateId = form.template_id || 'xiaoming-classic';
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!resumeFile) {
+      toast.error(form.resume_required || form.resume_label || 'Resume file');
+      return;
+    }
+
+    if (!targetRole.trim()) {
+      toast.error(form.role_required || form.role_label || 'Target role');
+      return;
+    }
+
+    if (!jobDescription.trim()) {
+      toast.error(form.jd_required || form.jd_label || 'Job description');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('templateId', templateId);
+    formData.append('resumeFile', resumeFile);
+    formData.append('targetRole', targetRole.trim());
+    formData.append('jobDescription', jobDescription.trim());
+
+    startTransition(async () => {
+      try {
+        const resp = await fetch('/api/resume/intake', {
+          method: 'POST',
+          body: formData,
+        });
+        const payload = await resp.json();
+
+        if (!resp.ok || payload.code !== 0) {
+          const message = payload.message || form.error || 'Upload failed';
+          toast.error(
+            String(message).includes('no auth')
+              ? form.auth_error || message
+              : message
+          );
+          return;
+        }
+
+        const resumeId = payload.data?.id;
+        if (!resumeId) {
+          toast.error(form.error || 'Upload failed');
+          return;
+        }
+
+        toast.success(form.success || 'Resume ready');
+        router.push(`/activity?resumeId=${resumeId}`);
+      } catch (error) {
+        toast.error(form.error || 'Upload failed');
+      }
+    });
+  };
 
   return (
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden py-20 md:py-28',
+        'bg-background border-b py-12 md:py-18',
         section.className,
         className
       )}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(25,127,143,0.16),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(209,162,68,0.14),_transparent_30%)]" />
-      <div className="absolute inset-x-0 top-0 h-56 bg-[linear-gradient(180deg,rgba(18,59,72,0.05),transparent)]" />
-
-      <div className="container relative z-10 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-        <div className="max-w-2xl">
-          {section.announcement && (
-            <Link
-              href={section.announcement.url || ''}
-              target={section.announcement.target || '_self'}
-              className="bg-background/85 border-border/80 text-foreground inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm shadow-sm backdrop-blur"
-            >
-              <Badge className="rounded-full px-2.5 py-0.5">
-                {section.announcement.badge || 'New'}
-              </Badge>
-              <span>{section.announcement.title}</span>
-              <ArrowRight className="size-4" />
-            </Link>
-          )}
-
-          <div className="mt-8 space-y-6">
-            <h1 className="max-w-4xl text-4xl font-semibold text-balance md:text-6xl md:leading-[1.05]">
-              {titleParts ? (
-                <>
-                  {titleParts[0]}
-                  <span className="text-primary">{highlightText}</span>
-                  {titleParts[1]}
-                </>
-              ) : (
-                section.title
-              )}
+      <div className="container">
+        <div className="mx-auto max-w-4xl space-y-8">
+          <div className="mx-auto max-w-3xl space-y-4 text-center">
+            {section.label ? (
+              <p className="text-primary text-sm font-semibold tracking-[0.14em] uppercase">
+                {section.label}
+              </p>
+            ) : null}
+            <h1 className="text-4xl leading-tight font-semibold tracking-[-0.01em] text-balance md:text-6xl md:leading-[1.04]">
+              {section.title}
             </h1>
+            {section.description ? (
+              <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-8">
+                {section.description}
+              </p>
+            ) : null}
+          </div>
 
-            <p
-              className="text-muted-foreground max-w-2xl text-lg leading-8"
-              dangerouslySetInnerHTML={{ __html: section.description ?? '' }}
-            />
+          <form
+            data-testid="resume-hero-form"
+            className="border-border bg-card mx-auto rounded-2xl border p-4 shadow-sm md:p-5"
+            onSubmit={handleSubmit}
+          >
+            <div className="grid gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium" htmlFor="hero-resume">
+                  {form.resume_label}
+                </label>
+                <label
+                  className="border-border bg-background hover:border-primary/60 flex min-h-24 cursor-pointer items-center justify-center gap-3 rounded-xl border border-dashed px-4 py-5 text-center transition"
+                  htmlFor="hero-resume"
+                >
+                  <UploadCloud className="text-primary size-5 shrink-0" />
+                  <span className="min-w-0 truncate text-sm font-medium">
+                    {resumeFile?.name || form.resume_helper}
+                  </span>
+                </label>
+                <Input
+                  id="hero-resume"
+                  accept={form.resume_accept}
+                  className="sr-only"
+                  type="file"
+                  onChange={(event) =>
+                    setResumeFile(event.target.files?.[0] || null)
+                  }
+                />
+              </div>
 
-            {section.buttons && (
-              <div className="flex flex-wrap gap-3">
-                {section.buttons.map((button, idx) => (
+              <div className="grid gap-4 md:grid-cols-[0.56fr_1fr]">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium" htmlFor="hero-role">
+                    {form.role_label}
+                  </label>
+                  <Input
+                    id="hero-role"
+                    className="h-12"
+                    placeholder={form.role_placeholder}
+                    value={targetRole}
+                    onChange={(event) => setTargetRole(event.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium" htmlFor="hero-jd">
+                    {form.jd_label}
+                  </label>
+                  <Textarea
+                    id="hero-jd"
+                    className="min-h-28"
+                    placeholder={form.jd_placeholder}
+                    value={jobDescription}
+                    onChange={(event) => setJobDescription(event.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button
+                  className="h-12 px-5 sm:min-w-40"
+                  disabled={isPending}
+                  size="lg"
+                  type="submit"
+                >
+                  {isPending ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <WandSparkles className="size-4" />
+                  )}
+                  {isPending ? form.pending : form.submit}
+                </Button>
+                {section.buttons?.[0] ? (
                   <Button
                     asChild
-                    key={idx}
-                    size={button.size || 'default'}
-                    variant={button.variant || 'default'}
-                    className="h-11 px-5"
+                    className="h-12 px-5"
+                    size="lg"
+                    variant="outline"
                   >
-                    <Link href={button.url || ''} target={button.target || '_self'}>
-                      {button.icon && <SmartIcon name={button.icon as string} size={18} />}
-                      <span>{button.title}</span>
+                    <Link
+                      href={section.buttons[0].url || '/activity'}
+                      target={section.buttons[0].target || '_self'}
+                    >
+                      {section.buttons[0].title}
+                      <ArrowRight className="size-4" />
                     </Link>
                   </Button>
-                ))}
-              </div>
-            )}
-
-            {section.tip && (
-              <p className="text-muted-foreground text-sm">{section.tip}</p>
-            )}
-          </div>
-
-          {chips.length > 0 && (
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {chips.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="bg-background/86 border-border/70 rounded-2xl border p-4 shadow-sm backdrop-blur"
-                >
-                  <div className="text-primary mb-3 flex size-9 items-center justify-center rounded-full bg-primary/10">
-                    {item.icon ? (
-                      <SmartIcon name={item.icon as string} size={18} />
-                    ) : (
-                      <CheckCircle2 className="size-4" />
-                    )}
-                  </div>
-                  <p className="text-sm font-semibold">{item.title}</p>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="relative">
-          <div className="from-primary/10 via-background/0 to-primary/5 absolute inset-0 rounded-[2rem] bg-gradient-to-br" />
-          <div className="relative grid gap-4">
-            <div className="bg-background/94 border-border/80 rounded-[1.75rem] border p-6 shadow-[0_24px_80px_rgba(18,59,72,0.12)] backdrop-blur">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold">{templatePreview.title}</p>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    {templatePreview.description}
-                  </p>
-                </div>
-                <div className="bg-primary/10 text-primary flex size-11 items-center justify-center rounded-2xl">
-                  <FileText className="size-5" />
-                </div>
-              </div>
-
-              <div className="mt-5 space-y-3">
-                {(templatePreview.sections ?? []).map((row: string, idx: number) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between rounded-2xl bg-muted/70 px-4 py-3"
-                  >
-                    <span className="text-sm font-medium">{row}</span>
-                    <span className="text-muted-foreground text-xs">
-                      {(templatePreview.tags ?? [])[idx] || 'ready'}
-                    </span>
-                  </div>
-                ))}
+                ) : null}
               </div>
             </div>
-
-            <div className="grid gap-4 md:grid-cols-[0.9fr_1.1fr]">
-              <div className="bg-card border-border/80 rounded-[1.5rem] border p-5 shadow-sm">
-                <div className="flex items-center gap-3">
-                  <div className="bg-primary/10 text-primary flex size-10 items-center justify-center rounded-2xl">
-                    <ScanSearch className="size-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">{jdPreview.title}</p>
-                    <p className="text-muted-foreground text-sm">{jdPreview.role}</p>
-                  </div>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {(jdPreview.keywords ?? []).map((keyword: string, idx: number) => (
-                    <span
-                      key={idx}
-                      className="rounded-full bg-secondary px-3 py-1 text-xs font-medium"
-                    >
-                      {keyword}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-muted-foreground mt-4 text-sm leading-6">
-                  {jdPreview.note}
-                </p>
-              </div>
-
-              <div className="bg-primary text-primary-foreground rounded-[1.5rem] p-5 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold">{resultPreview.title}</p>
-                    <p className="text-primary-foreground/70 mt-1 text-sm">
-                      {resultPreview.description}
-                    </p>
-                  </div>
-                  <div className="bg-primary-foreground/12 flex size-10 items-center justify-center rounded-2xl">
-                    <WandSparkles className="size-5" />
-                  </div>
-                </div>
-
-                <div className="mt-5 rounded-2xl bg-white/8 p-4">
-                  <p className="text-xs uppercase tracking-[0.18em] text-white/60">
-                    Match score
-                  </p>
-                  <p className="mt-2 text-4xl font-semibold">{resultPreview.match}</p>
-                </div>
-
-                <div className="mt-4 space-y-3">
-                  {(resultPreview.changes ?? []).map((change: string, idx: number) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-3 rounded-2xl bg-white/8 px-4 py-3"
-                    >
-                      <CheckCircle2 className="mt-0.5 size-4 shrink-0" />
-                      <span className="text-sm">{change}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>

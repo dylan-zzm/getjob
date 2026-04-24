@@ -76,26 +76,143 @@
     "saving": "Saving...",
     "success": "Resume updated",
     "error": "Failed to save",
+    "actions": {
+      "save": "SAVE BASIC INFO",
+      "tailor": "AI Tailor",
+      "docx": "DOWNLOAD WORD",
+      "pdf": "DOWNLOAD PDF"
+    },
+    "tabs": {
+      "contact": "CONTACT",
+      "experience": "EXPERIENCE",
+      "education": "Education",
+      "involvement": "INVOLVEMENT",
+      "skills": "SKILLS",
+      "summary": "SUMMARY",
+      "preview": "FINISH UP & PREVIEW",
+      "cover_letter": "AI COVER LETTER"
+    },
+    "tailoring": {
+      "role_label": "JOB TITLE *",
+      "jd_label": "JOB DESCRIPTION *",
+      "role_required": "Enter the target role first",
+      "jd_required": "Enter the job description first",
+      "pending": "Tailoring...",
+      "success": "AI tailoring updated",
+      "error": "Failed to tailor the resume",
+      "match_score": "Match {score}%",
+      "warnings": "Warnings"
+    },
+    "preview": {
+      "sidebar_title": "AI KEYWORD TARGETING",
+      "score_label": "Needs improvement",
+      "score_cta": "EXPLORE MY REZI SCORE",
+      "auto_adjust": "AUTO-ADJUST",
+      "adjustments": "ADJUSTMENTS",
+      "template": "TEMPLATE",
+      "share": "SHARE",
+      "save_job": "SAVE JOB DESCRIPTION",
+      "save_document": "SAVE DOCUMENT"
+    },
+    "preview_settings": {
+      "icons": "ICONS",
+      "avatar": "AVATAR",
+      "font": "FONT",
+      "decrease_font": "DECREASE FONT SIZE",
+      "increase_font": "INCREASE FONT SIZE",
+      "line_height": "LINE HEIGHT",
+      "section_spacing": "SECTION SPACING",
+      "indent": "INDENT",
+      "divider": "DIVIDER",
+      "page_size": "PAGE SIZE",
+      "zoom": "ZOOM",
+      "text_color": "TEXT COLOR",
+      "accent_color": "ACCENT COLOR",
+      "paged_view": "PAGED VIEW"
+    },
+    "document": {
+      "add_section": "ADD SECTION",
+      "contact": "CONTACT",
+      "move_up": "Move up",
+      "move_down": "Move down",
+      "remove": "Remove",
+      "custom_section": "CUSTOM SECTION",
+      "custom_title_placeholder": "Section title",
+      "custom_content_placeholder": "Section content"
+    },
+    "structured": {
+      "experience_title": "Experience",
+      "education_title": "Education",
+      "involvement_title": "Involvement",
+      "skills_title": "Skills",
+      "summary_title": "Summary",
+      "add_experience": "ADD EXPERIENCE",
+      "add_education": "ADD EDUCATION",
+      "add_involvement": "ADD INVOLVEMENT",
+      "add_skill": "ADD SKILL",
+      "remove_item": "REMOVE ITEM",
+      "actions": {
+        "save_contact": "SAVE BASIC INFO",
+        "save_experience": "SAVE EXPERIENCE LIST",
+        "save_education": "SAVE EDUCATION LIST",
+        "save_involvement": "SAVE INVOLVEMENT LIST",
+        "save_skills": "SAVE SKILL LIST",
+        "save_summary": "SAVE SUMMARY"
+      },
+      "fields": {
+        "role": "ROLE",
+        "company": "COMPANY",
+        "team": "TEAM / DEPARTMENT",
+        "location": "LOCATION",
+        "start_date": "START DATE",
+        "end_date": "END DATE",
+        "responsibility_mix": "RESPONSIBILITY MIX",
+        "bullets": "BULLET POINTS",
+        "degree": "DEGREE",
+        "school": "SCHOOL",
+        "major": "MAJOR",
+        "ranking": "RANKING",
+        "honors": "HONORS",
+        "skill_group": "SKILL GROUP",
+        "skill_summary": "SKILL SUMMARY",
+        "items": "ITEMS",
+        "strength_title": "TITLE",
+        "strength_description": "DESCRIPTION"
+      }
+    },
+    "cover_letter": {
+      "title": "AI Cover Letter",
+      "description": "Generate a cover letter from the current resume and target job."
+    },
+    "workspace": {
+      "upload_resume": "UPLOAD RESUME",
+      "submit_resume": "PARSE AND OPEN",
+      "switcher_label": "Saved resumes",
+      "switcher_current": "CURRENT",
+      "switcher_create": "Upload another resume"
+    },
     "fields": {
       "resume_title": "Resume title",
-      "name": "Name",
-      "headline": "Headline",
-      "email": "Email",
-      "phone": "Phone",
-      "wechat": "WeChat",
-      "location": "Location",
-      "availability": "Availability",
-      "summary": "Summary"
+      "name": "FULL NAME",
+      "headline": "PROFESSIONAL HEADLINE",
+      "email": "EMAIL ADDRESS",
+      "phone": "PHONE NUMBER",
+      "wechat": "WECHAT",
+      "location": "CITY",
+      "availability": "AVAILABILITY",
+      "summary": "SUMMARY",
+      "primary_link": "PERSONAL WEBSITE OR RELEVANT LINK"
     },
     "sections": {
-      "skills": "Skills",
+      "skills": "SKILLS",
       "skills_description": "One group per line. Suggested format: Group: Summary (keyword 1 / keyword 2)",
-      "strengths": "Strengths",
+      "strengths": "STRENGTHS",
       "strengths_description": "One item per line. Suggested format: Title: Description",
-      "education": "Education",
+      "education": "EDUCATION",
       "education_description": "One block per education item with a blank line between blocks. First line: School | Degree | Major | Start - End",
-      "experience": "Experience",
-      "experience_description": "One block per experience item with a blank line between blocks. First line: Company | Team | Role | Start - End, second line optional responsibility mix, then one bullet per line"
+      "experience": "EXPERIENCE",
+      "experience_description": "One block per experience item with a blank line between blocks. First line: Company | Team | Role | Start - End, second line optional responsibility mix, then one bullet per line",
+      "involvement": "INVOLVEMENT"
     }
   }
 }

@@ -111,7 +111,7 @@ describe('ResumeIntakeClient', () => {
     expect(toastMocks.error).toHaveBeenCalledWith('Upload a resume file first');
   });
 
-  it('submits the form and redirects to the tailoring page after success', async () => {
+  it('submits the form and redirects to the resume workbench after success', async () => {
     const user = userEvent.setup();
     const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       new Response(
@@ -176,9 +176,7 @@ describe('ResumeIntakeClient', () => {
     expect(toastMocks.success).toHaveBeenCalledWith(
       'Resume parsed and tailored successfully'
     );
-    expect(routerMocks.push).toHaveBeenCalledWith(
-      '/activity/tailoring?resumeId=resume-123'
-    );
+    expect(routerMocks.push).toHaveBeenCalledWith('/activity?resumeId=resume-123');
     expect(routerMocks.refresh).toHaveBeenCalledTimes(1);
   });
 });

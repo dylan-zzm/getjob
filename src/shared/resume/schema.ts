@@ -55,6 +55,15 @@ export const resumeRawSectionSchema = z.object({
   content: z.string().default(''),
 });
 
+export const defaultResumeSectionOrder = [
+  'summary',
+  'experience',
+  'education',
+  'involvement',
+  'skills',
+  'rawSections',
+];
+
 export const structuredResumeSchema = z.object({
   basics: z.object({
     name: z.string().default(''),
@@ -73,6 +82,7 @@ export const structuredResumeSchema = z.object({
   strengths: z.array(resumeStrengthSchema).default([]),
   extras: z.array(resumeExtraFieldSchema).default([]),
   rawSections: z.array(resumeRawSectionSchema).default([]),
+  sectionOrder: z.array(z.string()).default(defaultResumeSectionOrder),
 });
 
 export const tailoredResumeAnalysisSchema = z.object({
@@ -101,7 +111,9 @@ export const tailoredResumeAnalysisSchema = z.object({
 });
 
 export type StructuredResume = z.infer<typeof structuredResumeSchema>;
-export type TailoredResumeAnalysis = z.infer<typeof tailoredResumeAnalysisSchema>;
+export type TailoredResumeAnalysis = z.infer<
+  typeof tailoredResumeAnalysisSchema
+>;
 
 function createStringArraySchema() {
   return {
@@ -258,6 +270,7 @@ function createStructuredResumeJsonSchema() {
           required: ['title', 'content'],
         },
       },
+      sectionOrder: createStringArraySchema(),
     },
     required: [
       'basics',
@@ -306,7 +319,14 @@ export const tailoredResumeAnalysisJsonSchema = {
     },
     rewrittenResume: createStructuredResumeJsonSchema(),
   },
-  required: ['matchScore', 'summary', 'fitHighlights', 'warnings', 'changes', 'rewrittenResume'],
+  required: [
+    'matchScore',
+    'summary',
+    'fitHighlights',
+    'warnings',
+    'changes',
+    'rewrittenResume',
+  ],
 };
 
 export function parseStructuredResume(input: unknown): StructuredResume {
@@ -314,7 +334,184 @@ export function parseStructuredResume(input: unknown): StructuredResume {
 }
 
 export function parseTailoredResumeAnalysis(
-  input: unknown
+  input: unknown,
+  fallbackResume?: StructuredResume
 ): TailoredResumeAnalysis {
-  return tailoredResumeAnalysisSchema.parse(input);
+  return tailoredResumeAnalysisSchema.parse(
+    normalizeTailoredResumeAnalysisInput(input, fallbackResume)
+  );
+}
+
+function normalizeTailoredResumeAnalysisInput(
+  input: unknown,
+  fallbackResume?: StructuredResume
+) {
+  const source = parseLooseJson(input);
+  const record = isRecord(source) ? source : {};
+
+  const rewrittenResume = normalizeStructuredResumeCandidate(
+    record.rewrittenResume ??
+      record.rewritten_resume ??
+      record.rewritten ??
+      record.resume,
+    fallbackResume
+  );
+
+  return {
+    matchScore: normalizeNumber(record.matchScore ?? record.match_score, 0),
+    summary: normalizeString(record.summary),
+    fitHighlights: normalizeFitHighlights(
+      record.fitHighlights ?? record.fit_highlights
+    ),
+    warnings: normalizeStringArray(record.warnings),
+    changes: normalizeChanges(record.changes),
+    rewrittenResume,
+  };
+}
+
+function normalizeStructuredResumeCandidate(
+  input: unknown,
+  fallbackResume?: StructuredResume
+) {
+  const candidate = parseLooseJson(input);
+  if (candidate !== undefined) {
+    return candidate;
+  }
+
+  return fallbackResume;
+}
+
+function normalizeFitHighlights(input: unknown) {
+  const value = parseLooseJson(input);
+
+  if (Array.isArray(value)) {
+    return value.map((item) => {
+      if (typeof item === 'string') {
+        return {
+          title: '',
+          reason: item.trim(),
+        };
+      }
+
+      const record = isRecord(item) ? item : {};
+      return {
+        title: normalizeString(record.title),
+        reason: normalizeString(record.reason ?? record.description),
+      };
+    });
+  }
+
+  if (typeof value === 'string' && value.trim()) {
+    return [
+      {
+        title: '',
+        reason: value.trim(),
+      },
+    ];
+  }
+
+  return [];
+}
+
+function normalizeChanges(input: unknown) {
+  const value = parseLooseJson(input);
+
+  if (Array.isArray(value)) {
+    return value.map((item) => {
+      if (typeof item === 'string') {
+        return {
+          section: 'General',
+          before: '',
+          after: '',
+          reason: item.trim(),
+        };
+      }
+
+      const record = isRecord(item) ? item : {};
+      return {
+        section: normalizeString(record.section || record.title || 'General'),
+        before: normalizeString(record.before),
+        after: normalizeString(record.after),
+        reason: normalizeString(record.reason || record.description),
+      };
+    });
+  }
+
+  if (typeof value === 'string' && value.trim()) {
+    return [
+      {
+        section: 'General',
+        before: '',
+        after: '',
+        reason: value.trim(),
+      },
+    ];
+  }
+
+  return [];
+}
+
+function normalizeStringArray(input: unknown) {
+  const value = parseLooseJson(input);
+
+  if (Array.isArray(value)) {
+    return value.map((item) => normalizeString(item)).filter(Boolean);
+  }
+
+  if (typeof value === 'string' && value.trim()) {
+    return [value.trim()];
+  }
+
+  return [];
+}
+
+function normalizeNumber(input: unknown, fallback: number) {
+  if (typeof input === 'number' && Number.isFinite(input)) {
+    return input;
+  }
+
+  if (typeof input === 'string') {
+    const parsed = Number(input.trim());
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+
+  return fallback;
+}
+
+function normalizeString(input: unknown) {
+  if (typeof input === 'string') {
+    return input.trim();
+  }
+
+  return '';
+}
+
+function parseLooseJson(input: unknown) {
+  if (typeof input !== 'string') {
+    return input;
+  }
+
+  const trimmed = input.trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  if (
+    (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+    (trimmed.startsWith('[') && trimmed.endsWith(']'))
+  ) {
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      return input;
+    }
+  }
+
+  return input;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }

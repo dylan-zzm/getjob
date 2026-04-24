@@ -1,6 +1,10 @@
 import { basename } from 'node:path';
 
 import {
+  buildAttachmentContentDisposition,
+  sanitizeDownloadBasename,
+} from '@/shared/lib/content-disposition';
+import {
   findResumeById,
   parseResumeAnalysis,
   parseResumeContent,
@@ -56,14 +60,18 @@ export async function GET(req: Request) {
       template,
     });
 
-    const fileStem = sanitizeFilename(record.title || basename(template.fileName, '.docx'));
+    const fileStem = sanitizeDownloadBasename(
+      record.title || basename(template.fileName, '.docx')
+    );
 
     if (format === 'pdf') {
       const pdfBuffer = await convertDocxBufferToPdf(docxBuffer, fileStem);
       return new Response(new Uint8Array(pdfBuffer), {
         headers: {
           'Content-Type': 'application/pdf',
-          'Content-Disposition': `attachment; filename="${fileStem}.pdf"`,
+          'Content-Disposition': buildAttachmentContentDisposition(
+            `${fileStem}.pdf`
+          ),
         },
       });
     }
@@ -72,17 +80,15 @@ export async function GET(req: Request) {
       headers: {
         'Content-Type':
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'Content-Disposition': `attachment; filename="${fileStem}.docx"`,
+        'Content-Disposition': buildAttachmentContentDisposition(
+          `${fileStem}.docx`
+        ),
       },
     });
   } catch (e: any) {
     console.error('resume export failed:', e);
     return errorResponse(e.message || 'resume export failed', 500);
   }
-}
-
-function sanitizeFilename(value: string) {
-  return value.replace(/[^\w\u4e00-\u9fa5.-]+/g, '-').replace(/-+/g, '-');
 }
 
 function errorResponse(message: string, status: number) {

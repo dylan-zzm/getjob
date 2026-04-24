@@ -14,74 +14,35 @@
       "hero": {
         "id": "hero",
         "block": "resume-hero",
-        "title": "把一套固定模板，变成更像“这个岗位会选的人”的简历成品",
-        "highlight_text": "固定模板",
-        "description": "上传现有简历，抽取结构化内容，在线修改，再根据目标岗位和 JD 做定向改写，最后导出成保持模板格式的 Word 或 PDF。",
-        "announcement": {
-          "badge": "模板优先",
-          "title": "这不是自由排版编辑器，而是一套围绕固定 Word 模板设计的交付流程",
-          "url": "/showcases"
-        },
-        "tip": "适合求职者、求职辅导服务、简历代投团队和需要统一交付样式的工作室。",
+        "label": "开始定制",
+        "title": "上传简历，直接生成岗位定制版",
+        "description": "把原始简历和目标 JD 放进来，系统会抽取结构化字段、按岗位重写重点，并打开可编辑的简历工作台。",
         "buttons": [
           {
-            "title": "进入工作台",
+            "title": "已有简历，进入工作台",
             "icon": "LayoutDashboard",
-            "url": "/activity/resumes",
-            "target": "_self",
-            "variant": "default"
-          },
-          {
-            "title": "查看模板",
-            "icon": "FileText",
-            "url": "/showcases",
+            "url": "/activity",
             "target": "_self",
             "variant": "outline"
           }
         ],
-        "items": [
-          {
-            "title": "固定 Word 模板",
-            "description": "始终按你的模板交付。",
-            "icon": "FileText"
-          },
-          {
-            "title": "基于 JD 的定制",
-            "description": "围绕目标岗位重写内容重点。",
-            "icon": "Sparkles"
-          },
-          {
-            "title": "Word 与 PDF 导出",
-            "description": "一次编辑，双格式交付。",
-            "icon": "Download"
-          }
-        ],
-        "template_preview": {
-          "title": "当前模板",
-          "description": "一套固定结构，可派生多个岗位版本。",
-          "sections": [
-            "头部信息",
-            "教育背景",
-            "工作与实习",
-            "技能与优势"
-          ],
-          "tags": ["锁定版式", "结构化", "在线可改", "可导出"]
-        },
-        "jd_preview": {
-          "title": "目标 JD",
-          "role": "AI 产品经理",
-          "keywords": ["RAG", "数据产品", "用户洞察", "推进落地"],
-          "note": "输入岗位名称和完整 JD 后，系统会判断应该保留、重写、前置还是弱化哪些内容。"
-        },
-        "result_preview": {
-          "title": "定制结果",
-          "description": "更贴岗位，但仍保持事实一致。",
-          "match": "86%",
-          "changes": [
-            "将经历排序调整为 AI 产品与数据场景优先",
-            "用 JD 语境重写关键 bullet 表达",
-            "同一份结构化内容可同时产出 DOCX 与 PDF"
-          ]
+        "form": {
+          "template_id": "xiaoming-classic",
+          "resume_label": "上传简历",
+          "resume_helper": "拖入或选择 PDF / DOCX",
+          "resume_accept": ".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "resume_required": "请先上传简历文件",
+          "role_label": "目标岗位",
+          "role_placeholder": "例如：AI 产品经理",
+          "role_required": "请填写目标岗位",
+          "jd_label": "岗位 JD",
+          "jd_placeholder": "粘贴完整岗位描述，系统会据此判断内容保留、重写和排序。",
+          "jd_required": "请粘贴岗位 JD",
+          "submit": "开始生成",
+          "pending": "处理中...",
+          "success": "简历已生成",
+          "error": "生成失败，请稍后重试",
+          "auth_error": "请先登录后继续"
         }
       },
       "introduce": {

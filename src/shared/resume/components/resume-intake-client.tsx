@@ -96,7 +96,7 @@ export function ResumeIntakeClient({
         toast.success(t('form.success'));
       }
 
-      router.push(`/activity/tailoring?resumeId=${resumeId}`);
+      router.push(`/activity?resumeId=${resumeId}`);
       router.refresh();
     });
   };
@@ -175,31 +175,6 @@ export function ResumeIntakeClient({
       <div className="space-y-6">
         <Card className="border-border/80">
           <CardHeader>
-            <CardTitle>{t('workflow.title')}</CardTitle>
-            <CardDescription>{t('workflow.description')}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {(
-              t.raw('workflow.items') as { title: string; description: string }[]
-            ).map((item, index) => (
-              <div
-                key={item.title}
-                className="rounded-[1.5rem] border border-border/80 p-5"
-              >
-                <div className="bg-primary/10 text-primary flex size-9 items-center justify-center rounded-full text-sm font-semibold">
-                  {index + 1}
-                </div>
-                <h3 className="mt-4 font-semibold">{item.title}</h3>
-                <p className="text-muted-foreground mt-2 text-sm leading-6">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card className="border-border/80">
-          <CardHeader>
             <CardTitle>{t('recent.title')}</CardTitle>
             <CardDescription>{t('recent.description')}</CardDescription>
           </CardHeader>
@@ -232,7 +207,7 @@ export function ResumeIntakeClient({
                       </p>
                     </div>
                     <Button asChild size="sm" variant="outline">
-                      <Link href={`/activity/tailoring?resumeId=${resume.id}`}>
+                      <Link href={`/activity?resumeId=${resume.id}`}>
                         {t('recent.open')}
                       </Link>
                     </Button>

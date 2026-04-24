@@ -63,6 +63,9 @@ describe('POST /api/resume/update', () => {
           resumeId: 'resume-1',
           title: 'Tailored Resume',
           content: sampleStructuredResume,
+          targetRole: 'AI Product Manager',
+          jobDescription:
+            'Need a product manager who can design resume workflows.',
         }),
       })
     );
@@ -95,6 +98,9 @@ describe('POST /api/resume/update', () => {
         body: JSON.stringify({
           resumeId: 'resume-1',
           title: 'Tailored Resume',
+          targetRole: 'AI Product Manager',
+          jobDescription:
+            'Need a product manager who can design resume workflows.',
           content: sampleStructuredResume,
         }),
       })
@@ -109,6 +115,9 @@ describe('POST /api/resume/update', () => {
         title: 'Tailored Resume',
         status: 'parsed',
         analysis: null,
+        targetRole: 'AI Product Manager',
+        jobDescription:
+          'Need a product manager who can design resume workflows.',
         baseContent: JSON.stringify(sampleStructuredResume),
         tailoredContent: JSON.stringify(sampleStructuredResume),
         updatedAt: expect.any(Date),

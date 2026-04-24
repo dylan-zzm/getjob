@@ -76,6 +76,121 @@
     "saving": "保存中...",
     "success": "简历内容已更新",
     "error": "保存失败",
+    "actions": {
+      "save": "保存基本信息",
+      "tailor": "AI 改写",
+      "docx": "下载 Word",
+      "pdf": "下载 PDF"
+    },
+    "tabs": {
+      "contact": "联系信息",
+      "experience": "工作经历",
+      "education": "教育背景",
+      "involvement": "个人经历",
+      "skills": "技能",
+      "summary": "摘要",
+      "preview": "完成与预览",
+      "cover_letter": "AI 求职信"
+    },
+    "tailoring": {
+      "role_label": "目标岗位 *",
+      "jd_label": "岗位 JD *",
+      "role_required": "请先填写目标岗位",
+      "jd_required": "请先填写岗位 JD",
+      "pending": "改写中...",
+      "success": "AI 改写已完成",
+      "error": "AI 改写失败",
+      "match_score": "匹配度 {score}%",
+      "warnings": "风险提醒"
+    },
+    "preview": {
+      "sidebar_title": "AI 关键词匹配",
+      "score_label": "还可继续优化",
+      "score_cta": "查看当前匹配度",
+      "auto_adjust": "自动优化",
+      "adjustments": "版式调整",
+      "template": "模板",
+      "share": "分享",
+      "save_job": "保存 JD 并改写",
+      "save_document": "保存文档"
+    },
+    "preview_settings": {
+      "icons": "图标",
+      "avatar": "头像",
+      "font": "字体",
+      "decrease_font": "减小字体大小",
+      "increase_font": "增大字体大小",
+      "line_height": "行高",
+      "section_spacing": "段落间距",
+      "indent": "缩进",
+      "divider": "分隔线",
+      "page_size": "纸张尺寸",
+      "zoom": "缩放",
+      "text_color": "文本颜色",
+      "accent_color": "强调色",
+      "paged_view": "分页方式查看"
+    },
+    "document": {
+      "add_section": "添加段落",
+      "contact": "联系信息",
+      "move_up": "上移",
+      "move_down": "下移",
+      "remove": "删除",
+      "custom_section": "自定义段落",
+      "custom_title_placeholder": "段落标题",
+      "custom_content_placeholder": "段落内容"
+    },
+    "structured": {
+      "experience_title": "工作经历",
+      "education_title": "教育背景",
+      "involvement_title": "个人经历",
+      "skills_title": "技能",
+      "summary_title": "摘要",
+      "add_experience": "添加经历",
+      "add_education": "添加教育",
+      "add_involvement": "添加经历",
+      "add_skill": "添加技能",
+      "remove_item": "删除条目",
+      "actions": {
+        "save_contact": "保存基本信息",
+        "save_experience": "保存经历列表",
+        "save_education": "保存教育列表",
+        "save_involvement": "保存个人经历",
+        "save_skills": "保存技能列表",
+        "save_summary": "保存摘要"
+      },
+      "fields": {
+        "role": "岗位",
+        "company": "公司",
+        "team": "团队 / 部门",
+        "location": "地点",
+        "start_date": "开始时间",
+        "end_date": "结束时间",
+        "responsibility_mix": "职责概括",
+        "bullets": "要点描述",
+        "degree": "学历 / 资格",
+        "school": "学校",
+        "major": "专业",
+        "ranking": "成绩 / 排名",
+        "honors": "荣誉",
+        "skill_group": "技能分类",
+        "skill_summary": "技能概括",
+        "items": "技能项",
+        "strength_title": "标题",
+        "strength_description": "描述"
+      }
+    },
+    "cover_letter": {
+      "title": "AI 求职信",
+      "description": "根据当前简历内容和目标岗位，生成一版求职信。"
+    },
+    "workspace": {
+      "upload_resume": "上传新简历",
+      "submit_resume": "解析并打开",
+      "switcher_label": "已保存简历",
+      "switcher_current": "当前",
+      "switcher_create": "上传另一份简历"
+    },
     "fields": {
       "resume_title": "简历标题",
       "name": "姓名",
@@ -83,9 +198,10 @@
       "email": "邮箱",
       "phone": "手机号",
       "wechat": "微信",
-      "location": "工作地点",
+      "location": "城市",
       "availability": "到岗状态",
-      "summary": "个人摘要"
+      "summary": "个人摘要",
+      "primary_link": "个人网站或相关链接"
     },
     "sections": {
       "skills": "技能",
@@ -95,7 +211,8 @@
       "education": "教育经历",
       "education_description": "每段一条教育经历，段落之间空一行。首行格式：学校 | 学历 | 专业 | 开始 - 结束",
       "experience": "工作 / 实习 / 项目经历",
-      "experience_description": "每段一条经历，段落之间空一行。首行格式：公司 | 团队 | 岗位 | 开始 - 结束，第二行可写职责占比，后续每行一条 bullet"
+      "experience_description": "每段一条经历，段落之间空一行。首行格式：公司 | 团队 | 岗位 | 开始 - 结束，第二行可写职责占比，后续每行一条 bullet",
+      "involvement": "个人经历 / 优势"
     }
   }
 }

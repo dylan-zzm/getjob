@@ -120,7 +120,7 @@ export function ResumeTailoringClient({
         </CardHeader>
         <CardContent>
           <Button asChild>
-            <Link href="/activity/resumes">{t('composer.empty_button')}</Link>
+            <Link href="/activity">{t('composer.empty_button')}</Link>
           </Button>
         </CardContent>
       </Card>

@@ -224,6 +224,8 @@ export async function tailorStructuredResumeToJob({
       'You must not invent new experiences, results, numbers, employers, schools, titles, or dates.',
       'Return a match score between 0 and 100, fit highlights, warnings, tracked changes, and the rewritten structured resume.',
       'The rewritten resume must remain compatible with a fixed template and structured section editing.',
+      'changes must be an array of objects with section, before, after, and reason.',
+      'rewrittenResume is required and must be a complete structured resume object.',
     ].join('\n'),
     prompt: [
       `Target role: ${targetRole}`,
@@ -243,7 +245,7 @@ export async function tailorStructuredResumeToJob({
     },
   });
 
-  return parseTailoredResumeAnalysis(result);
+  return parseTailoredResumeAnalysis(result, resume);
 }
 
 export function buildResumeTitle({

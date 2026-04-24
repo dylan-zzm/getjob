@@ -20,6 +20,7 @@ describe('resume template engine', () => {
     expect(preview.headline).toBe('AI Product Manager');
     expect(preview.contactLine).toContain('邮箱：xiaoming@example.com');
     expect(preview.sections.map((section) => section.id)).toEqual([
+      'summary',
       'education',
       'fulltime',
       'internships',
@@ -28,10 +29,14 @@ describe('resume template engine', () => {
       'strengths',
     ]);
     expect(preview.sections[0]).toMatchObject({
+      id: 'summary',
+      title: '个人摘要',
+    });
+    expect(preview.sections[1]).toMatchObject({
       id: 'education',
       title: '教育背景',
     });
-    expect(preview.sections[1]).toMatchObject({
+    expect(preview.sections[2]).toMatchObject({
       id: 'fulltime',
       title: '工作经历',
     });

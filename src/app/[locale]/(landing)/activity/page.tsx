@@ -1,11 +1,14 @@
-import { redirect } from '@/core/i18n/navigation';
+import { renderActivityWorkspace } from '@/shared/resume/server/render-activity-workspace';
 
 export default async function ActivityPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ resumeId?: string }>;
 }) {
-  const { locale } = await params;
+  await params;
+  const { resumeId } = await searchParams;
 
-  redirect({ href: '/activity/intake', locale });
+  return renderActivityWorkspace({ requestedResumeId: resumeId });
 }

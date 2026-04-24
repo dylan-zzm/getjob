@@ -45,7 +45,7 @@ export async function callEvolinkTool<T>({
   const baseUrl = useDirectUrl
     ? configs.evolink_direct_base_url || configs.evolink_base_url
     : configs.evolink_base_url || configs.evolink_direct_base_url;
-  const model = configs.evolink_model || 'claude-sonnet-4-5-20250929';
+  const model = configs.evolink_model || 'claude-haiku-4-5-20251001';
 
   if (!apiKey) {
     throw new Error('evolink_api_key is not set');

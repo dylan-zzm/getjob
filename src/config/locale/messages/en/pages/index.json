@@ -14,74 +14,35 @@
       "hero": {
         "id": "hero",
         "block": "resume-hero",
-        "title": "Turn one fixed template into a role-specific resume package",
-        "highlight_text": "fixed template",
-        "description": "Upload the resume you already have, extract structured content, rewrite it against a target JD, and export a polished Word or PDF without breaking the approved layout.",
-        "announcement": {
-          "badge": "Template-first",
-          "title": "Built for fixed Word resume delivery, not free-form document editing",
-          "url": "/showcases"
-        },
-        "tip": "Designed for candidates, career coaches, and recruiting studios that need consistent output and faster turnaround.",
+        "label": "Start tailoring",
+        "title": "Upload a resume and tailor it to the job",
+        "description": "Add the source resume and target JD. The workspace extracts structured fields, rewrites the right sections, and opens an editable resume preview.",
         "buttons": [
           {
-            "title": "Open Workspace",
+            "title": "Open existing workspace",
             "icon": "LayoutDashboard",
-            "url": "/activity/resumes",
-            "target": "_self",
-            "variant": "default"
-          },
-          {
-            "title": "View Template",
-            "icon": "FileText",
-            "url": "/showcases",
+            "url": "/activity",
             "target": "_self",
             "variant": "outline"
           }
         ],
-        "items": [
-          {
-            "title": "Fixed Word template",
-            "description": "Your approved layout stays in control.",
-            "icon": "FileText"
-          },
-          {
-            "title": "JD-based tailoring",
-            "description": "Rewrite content for each target role.",
-            "icon": "Sparkles"
-          },
-          {
-            "title": "DOCX and PDF export",
-            "description": "Deliver a clean packet in the formats people expect.",
-            "icon": "Download"
-          }
-        ],
-        "template_preview": {
-          "title": "Current template",
-          "description": "One fixed structure, multiple role-specific versions.",
-          "sections": [
-            "Profile and contact",
-            "Education",
-            "Work and internships",
-            "Skills and strengths"
-          ],
-          "tags": ["locked", "structured", "editable", "exportable"]
-        },
-        "jd_preview": {
-          "title": "Target JD",
-          "role": "AI Product Manager",
-          "keywords": ["RAG", "Data product", "User insight", "Execution"],
-          "note": "Paste the full JD and let the system highlight what to keep, rewrite, reorder, or remove."
-        },
-        "result_preview": {
-          "title": "Tailored output",
-          "description": "A cleaner version that still stays fact-based.",
-          "match": "86%",
-          "changes": [
-            "Reordered experience around AI product and data work",
-            "Tightened bullets using the JD vocabulary",
-            "Prepared the same content for DOCX and PDF export"
-          ]
+        "form": {
+          "template_id": "xiaoming-classic",
+          "resume_label": "Resume file",
+          "resume_helper": "Choose a PDF or DOCX",
+          "resume_accept": ".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "resume_required": "Upload a resume file first",
+          "role_label": "Target role",
+          "role_placeholder": "AI Product Manager",
+          "role_required": "Enter the target role",
+          "jd_label": "Job description",
+          "jd_placeholder": "Paste the full job description. The system uses it to decide what to keep, rewrite, and reorder.",
+          "jd_required": "Paste the job description",
+          "submit": "Start tailoring",
+          "pending": "Working...",
+          "success": "Resume ready",
+          "error": "Could not create the tailored resume",
+          "auth_error": "Sign in to continue"
         }
       },
       "introduce": {

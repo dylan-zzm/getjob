@@ -30,10 +30,12 @@ export function ConsoleLayout({
   children: ReactNode;
 }) {
   const pathname = usePathname();
+  const hasNav = Boolean(nav?.items?.length);
   const [searchQuery, setSearchQuery] = useState('');
-  const filteredItems = nav?.items.filter((item) =>
-    item.title?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems =
+    nav?.items.filter((item) =>
+      item.title?.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
 
   const renderNavItems = () => (
     <nav className="space-y-1">
@@ -89,19 +91,21 @@ export function ConsoleLayout({
         <div className="container">
           <div className="flex items-center gap-4 py-8">
             {/* Mobile Menu Trigger */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden">
-                  <SmartIcon name="Menu" size={20} />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-64 px-4">
-                <SheetHeader className="mb-4 px-0">
-                  <SheetTitle>{title || 'Menu'}</SheetTitle>
-                </SheetHeader>
-                {renderNavItems()}
-              </SheetContent>
-            </Sheet>
+            {hasNav ? (
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon" className="md:hidden">
+                    <SmartIcon name="Menu" size={20} />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-64 px-4">
+                  <SheetHeader className="mb-4 px-0">
+                    <SheetTitle>{title || 'Menu'}</SheetTitle>
+                  </SheetHeader>
+                  {renderNavItems()}
+                </SheetContent>
+              </Sheet>
+            ) : null}
 
             <h1 className="text-foreground text-2xl font-semibold md:text-3xl">
               {title}
@@ -114,26 +118,12 @@ export function ConsoleLayout({
       <div className="container">
         <div className="flex flex-wrap gap-8 py-8">
           {/* Left Sidebar (Desktop) */}
-          <div className="hidden w-64 flex-shrink-0 md:block">
-            {/* Search Box */}
-            {/* <div className="relative mb-6">
-              <SmartIcon
-                name="Search"
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-              />
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-              />
-            </div> */}
-
-            {/* Navigation Menu */}
-            {renderNavItems()}
-          </div>
+          {hasNav ? (
+            <div className="hidden w-64 flex-shrink-0 md:block">
+              {/* Navigation Menu */}
+              {renderNavItems()}
+            </div>
+          ) : null}
 
           {/* Right Content Area */}
           <div className="min-w-0 flex-1">{children}</div>

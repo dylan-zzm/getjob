@@ -158,6 +158,14 @@ export const sampleStructuredResume: StructuredResume = {
   ],
   extras: [],
   rawSections: [],
+  sectionOrder: [
+    'summary',
+    'experience',
+    'education',
+    'involvement',
+    'skills',
+    'rawSections',
+  ],
 };
 
 export const sampleTailoredResumeAnalysis: TailoredResumeAnalysis = {

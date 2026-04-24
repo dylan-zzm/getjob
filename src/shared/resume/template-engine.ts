@@ -18,6 +18,7 @@ interface XiaomingTemplateSnapshot {
     manualLink: string;
     learningLink: string;
   };
+  summary: string;
   education: Array<{
     header: string;
     detail: string;
@@ -156,6 +157,7 @@ function buildXiaomingClassicSnapshot(
       manualLink: links[0]?.url || '',
       learningLink: links[1]?.url || warnings.join('；'),
     },
+    summary: resume.summary || '',
     education: education.map((item) => ({
       header: buildEducationHeader(item),
       detail: buildEducationDetail(item),
@@ -265,6 +267,12 @@ function buildXiaomingClassicPreviewModel({
       Boolean
     ),
     sections: [
+      {
+        id: 'summary',
+        title: isChineseLocale(locale) ? '个人摘要' : 'Summary',
+        kind: 'text-list',
+        lines: snapshot.summary ? [snapshot.summary] : [],
+      },
       {
         id: 'education',
         title: getSectionTitle(template, 'education', locale, 'Education'),

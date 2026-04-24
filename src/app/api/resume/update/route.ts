@@ -9,6 +9,8 @@ const payloadSchema = z.object({
   resumeId: z.string().min(1),
   title: z.string().min(1),
   content: structuredResumeSchema,
+  targetRole: z.string().optional().default(''),
+  jobDescription: z.string().optional().default(''),
 });
 
 export async function POST(req: Request) {
@@ -36,6 +38,8 @@ export async function POST(req: Request) {
     const updated = await updateResumeById(record.id, {
       title: payload.data.title,
       status: ResumeStatus.PARSED,
+      targetRole: payload.data.targetRole,
+      jobDescription: payload.data.jobDescription,
       baseContent: JSON.stringify(normalized),
       tailoredContent: JSON.stringify(normalized),
       analysis: null,

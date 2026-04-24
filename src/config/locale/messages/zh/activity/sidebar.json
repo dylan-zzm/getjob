@@ -1,28 +1,7 @@
 {
   "title": "工作台",
   "nav": {
-    "items": [
-      {
-        "title": "开始定制",
-        "url": "/activity/intake",
-        "icon": "Briefcase"
-      },
-      {
-        "title": "简历中心",
-        "url": "/activity/resumes",
-        "icon": "FileText"
-      },
-      {
-        "title": "岗位定制",
-        "url": "/activity/tailoring",
-        "icon": "Target"
-      },
-      {
-        "title": "导出中心",
-        "url": "/activity/exports",
-        "icon": "Download"
-      }
-    ]
+    "items": []
   },
   "top_nav": {
     "items": [
